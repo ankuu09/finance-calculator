@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Finance Calculator Hub - Fast, Free & Accurate Financial Calculators</title>
+  
+  <!-- SEO & Social Meta Tags -->
+  <meta name="description" content="Free, fast, and 100% client-side financial calculators: SIP, Loan EMI, Fixed Deposit (FD), Compound Interest, GST, and Personal/Auto Loan with amortization schedules and visual breakdowns.">
+  <meta name="keywords" content="finance calculator, SIP calculator, EMI calculator, FD calculator, compound interest calculator, GST calculator, loan calculator, financial planning, amortization schedule">
+  <meta name="author" content="Finance Calculator Hub">
+  <meta name="theme-color" content="#1e3a8a">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Finance Calculator Hub - Smart Financial Planning Tools">
+  <meta property="og:description" content="Calculate SIP returns, loan EMIs, fixed deposits, compound interest, and GST instantly with clean interactive charts. Zero tracking, 100% private.">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header" role="banner">
+    <div class="header-container">
+      <a href="#home" class="brand" aria-label="Finance Calculator Hub Home">
+        <span class="brand-icon" aria-hidden="true">₹%</span>
+        <span>Finance Hub</span>
+      </a>
+
+      <!-- Header Controls: Currency Selector & Navigation -->
+      <div class="header-controls">
+        <div class="currency-selector-wrapper" title="Change calculation currency">
+          <label for="currency-select" class="sr-only">Currency</label>
+          <select id="currency-select" class="currency-select" aria-label="Select currency">
+            <option value="₹" selected>₹ INR</option>
+            <option value="$">$ USD</option>
+            <option value="€">€ EUR</option>
+            <option value="£">£ GBP</option>
+            <option value="¥">¥ JPY</option>
+          </select>
+        </div>
+
+        <button class="nav-toggle-btn" id="nav-toggle-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+          ☰
+        </button>
+
+        <nav id="nav-links" class="nav-links" role="navigation" aria-label="Main Navigation">
+          <a href="#home" class="nav-link active">Home</a>
+          <a href="#sip" class="nav-link">SIP</a>
+          <a href="#emi" class="nav-link">EMI</a>
+          <a href="#fd" class="nav-link">FD</a>
+          <a href="#compound" class="nav-link">Compound</a>
+          <a href="#gst" class="nav-link">GST</a>
+          <a href="#loan" class="nav-link">Loan</a>
+          <a href="#about" class="nav-link">About</a>
+          <a href="#contact" class="nav-link">Contact</a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Quick Calculator Switcher Bar -->
+    <div class="calc-quick-bar" aria-label="Quick Calculator Selection">
+      <div class="calc-quick-container">
+        <a href="#sip" class="quick-pill">📈 SIP</a>
+        <a href="#emi" class="quick-pill">💳 EMI</a>
+        <a href="#fd" class="quick-pill">🏦 Fixed Deposit</a>
+        <a href="#compound" class="quick-pill">⚡ Compound Interest</a>
+        <a href="#gst" class="quick-pill">🧾 GST</a>
+        <a href="#loan" class="quick-pill">🏡 Loan & Extra Pay</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Wrapper -->
+  <main class="main-content" id="main-content" role="main">
+
+    <!-- ======================================================== -->
+    <!-- VIEW: HOME (Dashboard & Directory)                      -->
+    <!-- ======================================================== -->
+    <section id="view-home" class="page-view active-view" aria-labelledby="home-hero-title">
+      
+      <!-- Hero Section -->
+      <div class="hero-card">
+        <div class="hero-badge">⚡ 100% Client-Side & Private</div>
+        <h1 id="home-hero-title" class="hero-title">Smart, Accurate & Instant Financial Calculators</h1>
+        <p class="hero-subtitle">
+          Plan your investments, calculate loan EMIs, estimate compound growth, and compute tax effortlessly. All computations run directly in your browser with bank-standard formulas.
+        </p>
+        <ul class="hero-features-list">
+          <li class="hero-feature-item">✓ Zero server latency</li>
+          <li class="hero-feature-item">✓ No personal data collected</li>
+          <li class="hero-feature-item">✓ Multi-currency support</li>
+          <li class="hero-feature-item">✓ Detailed schedules & charts</li>
+        </ul>
+      </div>
+
+      <!-- Calculators Grid -->
+      <div class="section-header">
+        <h2 class="section-title">Explore Calculators</h2>
+        <p class="section-desc">Select any tool below to simulate your financial plans with instant interactive results.</p>
+      </div>
+
+      <div class="calc-grid">
+        <!-- 1. SIP Card -->
+        <article class="calc-card">
+          <div class="calc-card-header">
+            <div class="calc-card-icon icon-sip" aria-hidden="true">📈</div>
+            <div>
+              <h3 class="calc-card-title">SIP Calculator</h3>
+              <span class="tag-pill">Investment</span>
+            </div>
+          </div>
+          <p class="calc-card-desc">
+            Calculate the future wealth generated from systematic monthly mutual fund investments with compounding returns.
+          </p>
+          <div class="calc-card-tags">
+            <span class="tag-pill">Monthly Investment</span>
+            <span class="tag-pill">Expected CAGR</span>
+            <span class="tag-pill">Wealth Gain</span>
+          </div>
+          <a href="#sip" class="btn-open-calc">Open SIP Calculator →</a>
+        </article>
+
+        <!-- 2. EMI Card -->
+        <article class="calc-card">
+          <div class="calc-card-header">
+            <div class="calc-card-icon icon-emi" aria-hidden="true">💳</div>
+            <div>
+              <h3 class="calc-card-title">EMI Calculator</h3>
+              <span class="tag-pill">Borrowing</span>
+            </div>
+          </div>
+          <p class="calc-card-desc">
+            Determine your exact monthly installment, total payable interest, and repayment timeline for home or car loans.
+          </p>
+          <div class="calc-card-tags">
+            <span class="tag-pill">Equated Installment</span>
+            <span class="tag-pill">Interest Breakdown</span>
+            <span class="tag-pill">Amortization</span>
+          </div>
+          <a href="#emi" class="btn-open-calc">Open EMI Calculator →</a>
+        </article>
+
+        <!-- 3. FD Card -->
+        <article class="calc-card">
+          <div class="calc-card-header">
+            <div class="calc-card-icon icon-fd" aria-hidden="true">🏦</div>
+            <div>
+              <h3 class="calc-card-title">FD Calculator</h3>
+              <span class="tag-pill">Savings</span>
+            </div>
+          </div>
+          <p class="calc-card-desc">
+            Compute maturity value and interest earnings on fixed deposit accounts across quarterly, monthly, or annual compounding.
+          </p>
+          <div class="calc-card-tags">
+            <span class="tag-pill">Term Deposit</span>
+            <span class="tag-pill">Quarterly Compounding</span>
+            <span class="tag-pill">Maturity Value</span>
+          </div>
+          <a href="#fd" class="btn-open-calc">Open FD Calculator →</a>
+        </article>
+
+        <!-- 4. Compound Interest Card -->
+        <article class="calc-card">
+          <div class="calc-card-header">
+            <div class="calc-card-icon icon-compound" aria-hidden="true">⚡</div>
+            <div>
+              <h3 class="calc-card-title">Compound Interest</h3>
+              <span class="tag-pill">Growth</span>
+            </div>
+          </div>
+          <p class="calc-card-desc">
+            Harness the power of compounding with flexible frequencies and optional regular monthly contributions.
+          </p>
+          <div class="calc-card-tags">
+            <span class="tag-pill">Multi-Frequency</span>
+            <span class="tag-pill">Monthly Additions</span>
+            <span class="tag-pill">Exponential Growth</span>
+          </div>
+          <a href="#compound" class="btn-open-calc">Open Compound Calculator →</a>
+        </article>
+
+        <!-- 5. GST Card -->
+        <article class="calc-card">
+          <div class="calc-card-header">
+            <div class="calc-card-icon icon-gst" aria-hidden="true">🧾</div>
+            <div>
+              <h3 class="calc-card-title">GST Calculator</h3>
+              <span class="tag-pill">Taxation</span>
+            </div>
+          </div>
+          <p class="calc-card-desc">
+            Quickly add or remove Goods and Services Tax (GST) with standard rate slabs (5%, 12%, 18%, 28%) and CGST/SGST split.
+          </p>
+          <div class="calc-card-tags">
+            <span class="tag-pill">Inclusive / Exclusive</span>
+            <span class="tag-pill">CGST & SGST</span>
+            <span class="tag-pill">Tax Slabs</span>
+          </div>
+          <a href="#gst" class="btn-open-calc">Open GST Calculator →</a>
+        </article>
+
+        <!-- 6. Loan Card -->
+        <article class="calc-card">
+          <div class="calc-card-header">
+            <div class="calc-card-icon icon-loan" aria-hidden="true">🏡</div>
+            <div>
+              <h3 class="calc-card-title">Loan Calculator</h3>
+              <span class="tag-pill">Payoff Analysis</span>
+            </div>
+          </div>
+          <p class="calc-card-desc">
+            Analyze total borrowing costs and discover how extra monthly prepayments can shave years and thousands off your debt.
+          </p>
+          <div class="calc-card-tags">
+            <span class="tag-pill">Extra Prepayment</span>
+            <span class="tag-pill">Interest Savings</span>
+            <span class="tag-pill">Payoff Acceleration</span>
+          </div>
+          <a href="#loan" class="btn-open-calc">Open Loan Calculator →</a>
+        </article>
+      </div>
+
+      <!-- Universal Disclaimer Callout -->
+      <aside class="disclaimer-card" role="note">
+        <strong>Important Financial Estimation Notice</strong>
+        All figures, projections, and calculations displayed on Finance Calculator Hub are intended solely for educational and illustrative purposes. They do not constitute financial, investment, legal, or tax advice. While our mathematical algorithms align with conventional banking principles, actual figures may vary according to rounding methods, bank fees, fluctuating market returns, and tax regulations. Always verify official terms with your respective financial institution or certified advisor.
+      </aside>
+
+      <!-- Why Choose Section -->
+      <section class="info-section">
+        <h2 class="info-title">Why Use Finance Calculator Hub?</h2>
+        <div class="info-content">
+          <p>
+            Managing personal finances requires precision and clarity. Finance Calculator Hub is engineered to be your lightweight, lightning-fast companion for evaluating investments and liabilities:
+          </p>
+          <ul style="padding-left: 1.5rem; margin-bottom: 1rem;">
+            <li><strong>Complete Client-Side Privacy:</strong> Every single equation is calculated directly within your device's browser memory. Your financial numbers are never transmitted over the internet or saved to an external server.</li>
+            <li><strong>Standard Banking Algorithms:</strong> We employ recognized time-value-of-money formulas (CAGR, reducing balance amortization, compounding interest) used by banks and fund houses worldwide.</li>
+            <li><strong>Interactive Visual Feedback:</strong> Instantly see how principal amounts compare to interest earnings with responsive SVG proportion charts.</li>
+          </ul>
+        </div>
+      </section>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- VIEW: 1. SIP CALCULATOR                                  -->
+    <!-- ======================================================== -->
+    <section id="view-sip" class="page-view" aria-labelledby="sip-heading">
+      <a href="#home" class="calc-breadcrumb">← Back to All Calculators</a>
+      
+      <div class="calc-title-bar">
+        <h1 id="sip-heading" class="calc-view-title">SIP Calculator</h1>
+        <p class="calc-view-subtitle">Estimate the maturity value and wealth accumulation of your Systematic Investment Plans.</p>
+      </div>
+
+      <div class="calc-main-layout">
+        <!-- Input Form -->
+        <div class="calc-form-card">
+          <div class="form-group">
+            <div class="form-label-row">
+              <label for="sip-amount" class="form-label">Monthly Investment</label>
+              <span class="form-sublabel">Amount deposited monthly</span>
+            </div>
+            <div class="input-with-affix">
+              <span class="input-prefix currency-symbol">₹</span>
+              <input type="number" id="sip-amount" class="form-control has-prefix" value="10000" min="500" max="1000000" step="500">
+            </div>
+            <input type="range" id="sip-amount-range" class="range-slider" value="10000" min="500" max="100000" step="500">
+            <div class="preset-chips">
+              <button type="button" class="preset-chip" onclick="setInputValue('sip-amount', 2500); setInputValue('sip-amount-range', 2500); calculateSIP();">+ 2.5K</button>
+              <button type="button" class="preset-chip" onclick="setInputValue('sip-amount', 5000); setInputValue('sip-amount-range', 5000); calculateSIP();">+ 5K</button>
+              <button type="button" class="preset-chip" onclick="setInputValue('sip-amount', 10000); setInputValue('sip-amount-range', 10000); calculateSIP();">+ 10K</button>
+              <button type="button" class="preset-chip" onclick="setInputValue('sip-amount', 25000); setInputValue('sip-amount-range', 25000); calculateSIP();">+ 25K</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-label-row">
+              <label for="sip-rate" class="form-label">Expected Annual Return Rate (p.a.)</label>
+              <span class="form-sublabel">% per annum</span>
+            </div>
+            <div class="input-with-affix">
+              <input type="number" id="sip-rate" class="form-control has-suffix" value="12" min="1" max="30" step="0.5">
+              <span class="input-suffix">%</span>
+            </div>
+            <input type="range" id="sip-rate-range" class="range-slider" value="12" min="1" max="30" step="0.5">
+            <div class="preset-chips">
+              <button type="button" class="preset-chip" onclick="setInputValue('sip-rate', 8); setInputValue('sip-rate-range', 8); calculateSIP();">8% (Conservative)</button>
+              <button type="button" class="preset-chip" onclick="setInputValue('sip-rate', 12); setInputValue('sip-rate-range', 12); calculateSIP();">12% (Moderate)</button>
+              <button type="button" class="preset-chip" onclick="setInputValue('sip-rate', 15); setInputValue('sip-rate-range', 15); calculateSIP();">15% (Aggressive)</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-label-row">
+              <label for="sip-years" class="form-label">Time Period (Years)</label>
+              <span class="form-sublabel">Investment duration</span>
+            </div>
+            <div class="input-with-affix">
+              <input type="number" id="sip-years" class="form-control has-suffix" value="10" min="1" max="40" step="1">
+              <span class="input-suffix">Yr</span>
+            </div>
+            <input type="range" id="sip-years-range" class="range-slider" value="10" min="1" max="40" step="1">
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn-primary" onclick="calculateSIP()">Calculate</button>
+            <button type="button" class="btn-secondary" onclick="resetSIP()">Reset</button>
+          </div>
+        </div>
+
+        <!-- Results Card -->
+        <div class="calc-results-card">
+          <div class="results-hero-box">
+            <div class="results-hero-label">Estimated Total Value</div>
+            <div id="sip-total-value" class="results-hero-value">₹ 23,23,391</div>
+          </div>
+
+          <div class="results-metrics-grid">
+            <div class="metric-item highlight-primary">
+              <span class="metric-label">Invested Amount</span>
+              <span id="sip-invested-amount" class="metric-value">₹ 12,00,000</span>
+            </div>
+            <div class="metric-item highlight-success">
+              <span class="metric-label">Estimated Returns</span>
+              <span id="sip-estimated-returns" class="metric-value">₹ 11,23,391</span>
+            </div>
+          </div>
+
+          <!-- SVG Donut Chart -->
+          <div id="sip-donut-chart"></div>
+
+          <!-- Growth Schedule Preview -->
+          <div class="schedule-container">
+            <div class="schedule-header">
+              <span>Annual Growth Schedule</span>
+              <span style="font-size: 0.8rem; color: var(--text-muted);">Yearly Milestones</span>
+            </div>
+            <div class="table-responsive">
+              <table class="schedule-table">
+                <thead>
+                  <tr>
+                    <th>Year</th>
+                    <th>Invested</th>
+                    <th>Interest Earned</th>
+                    <th>Total Balance</th>
+                  </tr>
+                </thead>
+                <tbody id="sip-schedule-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- How It Works Section -->
+      <section class="info-section">
+        <h2 class="info-title">How the SIP Calculator Works</h2>
+        <div class="info-content">
+          <p>
+            A Systematic Investment Plan (SIP) involves depositing a fixed sum of money into mutual funds at regular monthly intervals. This strategy enables rupee-cost averaging and harnesses compound interest.
+          </p>
+          <div class="formula-card">
+            FV = P × [((1 + i)<sup>n</sup> - 1) / i] × (1 + i)
+          </div>
+          <ul class="formula-legend">
+            <li><strong>FV:</strong> Future Value (Maturity Amount)</li>
+            <li><strong>P:</strong> Amount invested regularly each month</li>
+            <li><strong>i:</strong> Periodic rate of interest per month (Annual Rate / 12 / 100)</li>
+            <li><strong>n:</strong> Total number of monthly installments (Years × 12)</li>
+          </ul>
+          <p style="margin-top: 1rem;">
+            <strong>Practical Example:</strong> If you invest ₹5,000 every month for 10 years at an expected annual return of 12%, your total capital contribution will be ₹6,00,000. Compounded monthly, your projected maturity wealth will be approximately ₹11,61,695, representing ₹5,61,695 in compounding returns.
+          </p>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section class="info-section">
+        <h2 class="info-title">SIP Calculator FAQs</h2>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question-btn" type="button">
+              <span>Are SIP returns guaranteed?</span>
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-answer">
+              No. Mutual fund investments and SIPs are subject to market risks. Past performance and assumed rates of return (such as 12%) are solely estimations and do not reflect guaranteed future yields.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question-btn" type="button">
+              <span>What is Rupee Cost Averaging in SIP?</span>
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-answer">
+              Rupee cost averaging allows you to buy more mutual fund units when market prices (NAV) are low, and fewer units when prices are high. Over time, this smooths out market volatility without requiring you to time the market.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question-btn" type="button">
+              <span>Can I change my SIP investment amount later?</span>
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-answer">
+              Yes, most asset management companies offer "Step-Up" or "Top-Up" SIP facilities where you can automatically increase your monthly investment by a percentage or fixed amount each year.
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- VIEW: 2. EMI CALCULATOR                                  -->
+    <!-- ======================================================== -->
+    <section id="view-emi" class="page-view" aria-labelledby="emi-heading">
+      <a href="#home" class="calc-breadcrumb">← Back to All Calculators</a>
+      
+      <div class="calc-title-bar">
+        <h1 id="emi-heading" class="calc-view-title">EMI Calculator</h1>
+        <p class="calc-view-subtitle">Calculate your Equated Monthly Installment and understand your total loan interest.</p>
+      </div>
+
+      <div class="calc-main-layout">
+        <!-- Input Form -->
+        <div class="calc-form-card">
+          <div class="form-group">
+            <div class="form-label-row">
+              <label for="emi-principal" class="form-label">Loan Amount</label>
+              <span class="form-sublabel">Total principal borrowed</span>
+            </div>
+            <div class="input-with-affix">
+              <span class="input-prefix currency-symbol">₹</span>
+              <input type="number" id="emi-principal" class="form-control has-prefix" value="2500000" min="10000" max="50000000" step="50000">
+            </div>
+            <input type="range" id="emi-principal-range" class="range-slider" value="2500000" min="100000" max="10000000" step="50000">
+            <div class="preset-chips">
+              <button type="button" class="preset-chip" onclick="setInputValue('emi-principal', 500000); setInputValue('emi-principal-range', 500000); calculateEMI();">5 Lakhs</button>
+              <button type="button" class="preset-chip" onclick="setInputValue('emi-principal', 2500000); setInputValue('emi-principal-range', 2500000); calculateEMI();">25 Lakhs</button>
+              <button type="button" class="preset-chip" onclick="setInputValue('emi-principal', 5000000); setInputValue('emi-principal-range', 5000000); calculateEMI();">50 Lakhs</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-label-row">
+              <label for="emi-rate" class="form-label">Annual Interest Rate (% p.a.)</label>
+              <span class="form-sublabel">Reducing balance rate</span>
+            </div>
+            <div class="input-with-affix">
+              <input type="number" id="emi-rate" class="form-control has-suffix" value="8.5" min="1" max="30" step="0.1">
+              <span class="input-suffix">%</span>
+            </div>
+            <input type="range" id="emi-rate-range" class="range-slider" value="8.5" min="1" max="25" step="0.1">
+            <div class="preset-chips">
+              <button type="button" class="preset-chip" onclick="setInputValue('emi-rate', 8.5); setInputValue('emi-rate-range', 8.5); calculateEMI();">8.5% (Home)</button>
+              <button type="button" class="preset-chip" onclick="setInputValue('emi-rate', 9.5); setInputValue('emi-rate-range', 9.5); calculateEMI();">9.5% (Car)</button>
+              <button type="button" class="preset-chip" onclick="setInputValue('emi-rate', 13.5); setInputValue('emi-rate-range', 13.5); calculateEMI();">13.5% (Personal)</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-label-row">
+              <label for="emi-tenure" class="form-label">Loan Tenure (Years)</label>
+              <span class="form-sublabel">Total repayment period</span>
+            </div>
+            <div class="input-with-affix">
+              <input type="number" id="emi-tenure" class="form-control has-suffix" value="20" min="1" max="35" step="1">
+              <span class="input-suffix">Yr</span>
+            </div>
+            <input type="range" id="emi-tenure-range" class="range-slider" value="20" min="1" max="30" step="1">
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn-primary" onclick="calculateEMI()">Calculate</button>
+            <button type="button" class="btn-secondary" onclick="resetEMI()">Reset</button>
+          </div>
+        </div>
+
+        <!-- Results Card -->
+        <div class="calc-results-card">
+          <div class="results-hero-box">
+            <div class="results-hero-label">Monthly EMI</div>
+            <div id="emi-monthly-val" class="results-hero-value">₹ 21,696</div>
+          </div>
+
+          <div class="results-metrics-grid">
+            <div class="metric-item highlight-primary">
+              <span class="metric-label">Principal Amount</span>
+              <span id="emi-principal-val" class="metric-value">₹ 25,00,000</span>
+            </div>
+            <div class="metric-item highlight-danger">
+              <span class="metric-label">Total Interest</span>
+              <span id="emi-total-interest" class="metric-value">₹ 27,06,948</span>
+            </div>
+            <div class="metric-item highlight-primary" style="grid-column: span 2;">
+              <span class="metric-label">Total Amount Payable</span>
+              <span id="emi-total-payment" class="metric-value">₹ 52,06,948</span>
+            </div>
+          </div>
+
+          <!-- Chart -->
+          <div id="emi-donut-chart"></div>
+
+          <!-- Amortization Schedule -->
+          <div class="schedule-container">
+            <div class="schedule-header">
+              <span>Yearly Amortization Schedule</span>
+              <span style="font-size: 0.8rem; color: var(--text-muted);">Principal vs Interest</span>
+            </div>
+            <div class="table-responsive">
+              <table class="schedule-table">
+                <thead>
+                  <tr>
+                    <th>Year</th>
+                    <th>Principal Paid</th>
+                    <th>Interest Paid</th>
+                    <th>Balance</th>
+                  </tr>
+                </thead>
+                <tbody id="emi-schedule-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Explanation -->
+      <section class="info-section">
+        <h2 class="info-title">How the EMI Formula Works</h2>
+        <div class="info-content">
+          <p>
+            An Equated Monthly Installment (EMI) represents a fixed monthly amount payable to your lender. Each payment covers both interest and a portion of the principal.
+          </p>
+          <div class="formula-card">
+            EMI = [P × r × (1 + r)<sup>n</sup>] / [(1 + r)<sup>n</sup> - 1]
+          </div>
+          <ul class="formula-legend">
+            <li><strong>P:</strong> Principal loan amount borrowed</li>
+            <li><strong>r:</strong> Monthly interest rate (Annual rate / 12 / 100)</li>
+            <li><strong>n:</strong> Number of monthly installments (Years × 12)</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="info-section">
+        <h2 class="info-title">EMI Calculator FAQs</h2>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question-btn" type="button">
+              <span>Why is interest higher during early loan years?</span>
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-answer">
+              Interest is calculated on the remaining unpaid principal balance. In the beginning, the balance is at its highest, meaning a larger portion of each EMI goes toward paying interest. Over time, as principal is reduced, the interest portion shrinks.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question-btn" type="button">
+              <span>How does loan tenure affect my monthly EMI?</span>
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-answer">
+              A longer loan tenure lowers your monthly EMI payment, making it easier on your monthly budget. However, a longer tenure substantially increases the total interest paid over the life of the loan.
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- VIEW: 3. FD CALCULATOR                                   -->
+    <!-- ======================================================== -->
+    <section id="view-fd" class="page-view" aria-labelledby="fd-heading">
+      <a href="#home" class="calc-breadcrumb">← Back to All Calculators</a>
+      
+      <div class="calc-title-bar">
+        <h1 id="fd-heading" class="calc-view-title">Fixed Deposit (FD) Calculator</h1>
+        <p class="calc-view-subtitle">Calculate maturity returns and total interest earned on fixed term bank deposits.</p>
+      </div>
+
+      <div class="calc-main-layout">
+        <!-- Input Form -->
+        <div class="calc-form-card">
+          <div class="form-group">
+            <div class="form-label-row">
+              <label for="fd-principal" class="form-label">Total Deposit Amount</label>
+              <span class="form-sublabel">Lump sum principal</span>
+            </div>
+            <div class="input-with-affix">
+              <span class="input-prefix currency-symbol">₹</span>
+              <input type="number" id="fd-principal" class="form-control has-prefix" value="500000" min="5000" max="50000000" step="10000">
+            </div>
+            <input type="range" id="fd-principal-range" class="range-slider" value="500000" min="10000" max="2000000" step="10000">
+          </div>
+
+          <div class="form-group">
+            <div class="form-label-row">
+              <label for="fd-rate" class="form-label">Annual Interest Rate (% p.a.)</label>
+              <span class="form-sublabel">Offered bank rate</span>
+            </div>
+            <div class="input-with-affix">
+              <input type="number" id="fd-rate" class="form-control has-suffix" value="7.1" min="1" max="20" step="0.1">
+              <span class="input-suffix">%</span>
+            </div>
+            <input type="range" id="fd-rate-range" class="range-slider" value="7.1" min="1" max="15" step="0.1">
+          </div>
+
+          <div class="form-group">
+            <div class="form-label-row">
+              <label for="fd-tenure" class="form-label">Tenure (Years)</label>
+              <span class="form-sublabel">Deposit duration</span>
+            </div>
+            <div class="input-with-affix">
+              <input type="number" id="fd-tenure" class="form-control has-suffix" value="5" min="1" max="25" step="1">
+              <span class="input-suffix">Yr</span>
+            </div>
+            <input type="range" id="fd-tenure-range" class="range-slider" value="5" min="1" max="10" step="1">
+          </div>
+
+          <div class="form-group">
+            <label for="fd-compounding" class="form-label">Compounding Frequency</label>
+            <select id="fd-compounding" class="form-control">
+              <option value="4" selected>Quarterly (Most Commercial Banks)</option>
+              <option value="12">Monthly</option>
+              <option value="2">Half-Yearly</option>
+              <option value="1">Annually</option>
+              <option value="0">Simple Interest (No Compounding)</option>
+            </select>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn-primary" onclick="calculateFD()">Calculate</button>
+            <button type="button" class="btn-secondary" onclick="resetFD()">Reset</button>
+          </div>
+        </div>
+
+        <!-- Results Card -->
+        <div class="calc-results-card">
+          <div class="results-hero-box">
+            <div class="results-hero-label">Maturity Value</div>
+            <div id="fd-maturity-val" class="results-hero-value">₹ 7,10,388</div>
+          </div>
+
+          <div class="results-metrics-grid">
+            <div class="metric-item highlight-primary">
+              <span class="metric-label">Principal Deposit</span>
+              <span id="fd-principal-val" class="metric-value">₹ 5,00,000</span>
+            </div>
+            <div class="metric-item highlight-success">
+              <span class="metric-label">Total Interest Earned</span>
+              <span id="fd-interest-val" class="metric-value">₹ 2,10,388</span>
+            </div>
+          </div>
+
+          <!-- Chart -->
+          <div id="fd-donut-chart"></div>
+        </div>
+      </div>
+
+      <!-- Explanation -->
+      <section class="info-section">
+        <h2 class="info-title">How Fixed Deposit Interest is Calculated</h2>
+        <div class="info-content">
+          <p>
+            Most retail banks compound interest on Fixed Deposits on a quarterly basis (4 times per year). The compounded formula is:
+          </p>
+          <div class="formula-card">
+            A = P × (1 + r / n)<sup>(n × t)</sup>
+          </div>
+          <ul class="formula-legend">
+            <li><strong>A:</strong> Total maturity amount</li>
+            <li><strong>P:</strong> Initial principal amount deposited</li>
+            <li><strong>r:</strong> Annual nominal interest rate (as a decimal)</li>
+            <li><strong>n:</strong> Number of compounding periods per year (Quarterly = 4)</li>
+            <li><strong>t:</strong> Number of years for which deposit is held</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="info-section">
+        <h2 class="info-title">Fixed Deposit FAQs</h2>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question-btn" type="button">
+              <span>Is Fixed Deposit interest subject to income tax?</span>
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-answer">
+              Yes, in most jurisdictions, interest earned from bank fixed deposits is taxable under "Income from Other Sources" according to your applicable income tax bracket. Tax Deducted at Source (TDS) may also apply above prescribed threshold limits.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question-btn" type="button">
+              <span>Do senior citizens receive higher interest rates?</span>
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-answer">
+              Yes, most banking institutions offer a preferential interest rate bump (typically 0.50% to 0.75% additional p.a.) for senior citizens.
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- VIEW: 4. COMPOUND INTEREST CALCULATOR                     -->
+    <!-- ======================================================== -->
+    <section id="view-compound" class="page-view" aria-labelledby="ci-heading">
+      <a href="#home" class="calc-breadcrumb">← Back to All Calculators</a>
+      
+      <div class="calc-title-bar">
+        <h1 id="ci-heading" class="calc-view-title">Compound Interest Calculator</h1>
+        <p class="calc-view-subtitle">Simulate continuous investment compounding with customizable recurring monthly contributions.</p>
+      </div>
+
+      <div class="calc-main-layout">
+        <!-- Input Form -->
+        <div class="calc-form-card">
+          <div class="form-group">
+            <div class="form-label-row">
+              <label for="ci-principal" class="form-label">Initial Principal</label>
+              <span class="form-sublabel">Starting deposit</span>
+            </div>
+            <div class="input-with-affix">
+              <span class="input-prefix currency-symbol">₹</span>
+              <input type="number" id="ci-principal" class="form-control has-prefix" value="200000" min="0" max="10000000" step="10000">
+            </div>
+            <input type="range" id="ci-principal-range" class="range-slider" value="200000" min="0" max="2000000" step="10000">
+          </div>
+
+          <div class="form-group">
+            <div class="form-label-row">
+              <label for="ci-monthly" class="form-label">Regular Monthly Contribution</label>
+              <span class="form-sublabel">Optional ongoing addition</span>
+            </div>
+            <div class="input-with-affix">
+              <span class="input-prefix currency-symbol">₹</span>
+              <input type="number" id="ci-monthly" class="form-control has-prefix" value="5000" min="0" max="200000" step="500">
+            </div>
+            <input type="range" id="ci-monthly-range" class="range-slider" value="5000" min="0" max="50000" step="500">
+          </div>
+
+          <div class="form-group">
+            <div class="form-label-row">
+              <label for="ci-rate" class="form-label">Annual Interest Rate (%)</label>
+              <span class="form-sublabel">Expected rate</span>
+            </div>
+            <div class="input-with-affix">
+              <input type="number" id="ci-rate" class="form-control has-suffix" value="10" min="0.1" max="30" step="0.5">
+              <span class="input-suffix">%</span>
+            </div>
+            <input type="range" id="ci-rate-range" class="range-slider" value="10" min="1" max="25" step="0.5">
+          </div>
+
+          <div class="form-group">
+            <div class="form-label-row">
+              <label for="ci-tenure" class="form-label">Investment Duration (Years)</label>
+              <span class="form-sublabel">Horizon</span>
+            </div>
+            <div class="input-with-affix">
+              <input type="number" id="ci-tenure" class="form-control has-suffix" value="10" min="1" max="50" step="1">
+              <span class="input-suffix">Yr</span>
+            </div>
+            <input type="range" id="ci-tenure-range" class="range-slider" value="10" min="1" max="40" step="1">
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn-primary" onclick="calculateCompound()">Calculate</button>
+            <button type="button" class="btn-secondary" onclick="resetCompound()">Reset</button>
+          </div>
+        </div>
+
+        <!-- Results Card -->
+        <div class="calc-results-card">
+          <div class="results-hero-box">
+            <div class="results-hero-label">Future Total Balance</div>
+            <div id="ci-total-balance" class="results-hero-value">₹ 15,48,740</div>
+          </div>
+
+          <div class="results-metrics-grid">
+            <div class="metric-item highlight-primary">
+              <span class="metric-label">Initial Principal</span>
+              <span id="ci-principal-val" class="metric-value">₹ 2,00,000</span>
+            </div>
+            <div class="metric-item highlight-primary">
+              <span class="metric-label">Total Additions</span>
+              <span id="ci-additions-val" class="metric-value">₹ 6,00,000</span>
+            </div>
+            <div class="metric-item highlight-success" style="grid-column: span 2;">
+              <span class="metric-label">Total Compound Interest</span>
+              <span id="ci-interest-val" class="metric-value">₹ 7,48,740</span>
+            </div>
+          </div>
+
+          <!-- Chart -->
+          <div id="ci-donut-chart"></div>
+
+          <!-- Trajectory Table -->
+          <div class="schedule-container">
+            <div class="schedule-header">
+              <span>Annual Growth Milestones</span>
+              <span style="font-size: 0.8rem; color: var(--text-muted);">Yearly Trajectory</span>
+            </div>
+            <div class="table-responsive">
+              <table class="schedule-table">
+                <thead>
+                  <tr>
+                    <th>Year</th>
+                    <th>Total Invested</th>
+                    <th>Interest Earned</th>
+                    <th>Balance</th>
+                  </tr>
+                </thead>
+                <tbody id="ci-schedule-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Explanation -->
+      <section class="info-section">
+        <h2 class="info-title">The Mechanics of Compound Interest</h2>
+        <div class="info-content">
+          <p>
+            Unlike simple interest which pays returns solely on the initial deposit, compound interest earns returns on both your principal and the accumulated interest from prior periods.
+          </p>
+          <div class="formula-card">
+            A = P × (1 + r / n)<sup>nt</sup> + PMT × [((1 + r / n)<sup>nt</sup> - 1) / (r / n)]
+          </div>
+          <p>
+            Over long time horizons, compounding creates an exponential curve where earnings from interest eventually surpass the capital deposited.
+          </p>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="info-section">
+        <h2 class="info-title">Compound Interest FAQs</h2>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question-btn" type="button">
+              <span>What is the Rule of 72?</span>
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-answer">
+              The Rule of 72 is a quick mental math shortcut to estimate how many years it will take to double your money. Divide 72 by your annual rate of return (e.g., at 12%, 72 / 12 = 6 years to double).
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question-btn" type="button">
+              <span>How does compounding frequency impact returns?</span>
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-answer">
+              The more frequently interest is compounded (e.g., daily vs. monthly vs. annually), the faster interest begins earning interest of its own, resulting in a slightly higher effective annual yield.
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- VIEW: 5. GST CALCULATOR                                  -->
+    <!-- ======================================================== -->
+    <section id="view-gst" class="page-view" aria-labelledby="gst-heading">
+      <a href="#home" class="calc-breadcrumb">← Back to All Calculators</a>
+      
+      <div class="calc-title-bar">
+        <h1 id="gst-heading" class="calc-view-title">GST Calculator</h1>
+        <p class="calc-view-subtitle">Calculate Goods and Services Tax: add GST to base prices or extract tax from gross amounts.</p>
+      </div>
+
+      <div class="calc-main-layout">
+        <!-- Input Form -->
+        <div class="calc-form-card">
+          <div class="form-group">
+            <label class="form-label">Calculation Mode</label>
+            <div class="segmented-control" role="radiogroup">
+              <div class="segmented-option active gst-mode-opt" data-mode="exclusive" onclick="setGstMode('exclusive')">
+                Exclusive (Add GST)
+              </div>
+              <div class="segmented-option gst-mode-opt" data-mode="inclusive" onclick="setGstMode('inclusive')">
+                Inclusive (Remove GST)
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-label-row">
+              <label for="gst-amount" id="gst-amount-label" class="form-label">Base Amount (Excluding GST)</label>
+            </div>
+            <div class="input-with-affix">
+              <span class="input-prefix currency-symbol">₹</span>
+              <input type="number" id="gst-amount" class="form-control has-prefix" value="50000" min="1" max="10000000" step="100">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-label-row">
+              <label for="gst-rate" class="form-label">GST Tax Rate (%)</label>
+              <span class="form-sublabel">Select slab or custom</span>
+            </div>
+            <div class="input-with-affix">
+              <input type="number" id="gst-rate" class="form-control has-suffix" value="18" min="0" max="50" step="0.5">
+              <span class="input-suffix">%</span>
+            </div>
+            <div class="preset-chips" style="margin-top: 0.5rem;">
+              <button type="button" class="preset-chip gst-rate-chip" data-rate="3" onclick="setGstRate(3)">3% (Precious Metals)</button>
+              <button type="button" class="preset-chip gst-rate-chip" data-rate="5" onclick="setGstRate(5)">5% (Essentials)</button>
+              <button type="button" class="preset-chip gst-rate-chip" data-rate="12" onclick="setGstRate(12)">12% (Standard)</button>
+              <button type="button" class="preset-chip gst-rate-chip active" data-rate="18" onclick="setGstRate(18)">18% (Services/Tech)</button>
+              <button type="button" class="preset-chip gst-rate-chip" data-rate="28" onclick="setGstRate(28)">28% (Luxury)</button>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn-primary" onclick="calculateGST()">Calculate</button>
+            <button type="button" class="btn-secondary" onclick="resetGST()">Reset</button>
+          </div>
+        </div>
+
+        <!-- Results Card -->
+        <div class="calc-results-card">
+          <div class="results-hero-box">
+            <div class="results-hero-label">Total Invoiced Amount</div>
+            <div id="gst-total-amount" class="results-hero-value">₹ 59,000.00</div>
+          </div>
+
+          <div class="results-metrics-grid">
+            <div class="metric-item highlight-primary">
+              <span class="metric-label">Net Base Amount</span>
+              <span id="gst-net-amount" class="metric-value">₹ 50,000.00</span>
+            </div>
+            <div class="metric-item highlight-danger">
+              <span class="metric-label">Total GST Tax</span>
+              <span id="gst-calculated-amount" class="metric-value">₹ 9,000.00</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">CGST (Central GST)</span>
+              <span id="gst-cgst-amount" class="metric-value">₹ 4,500.00</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">SGST (State GST)</span>
+              <span id="gst-sgst-amount" class="metric-value">₹ 4,500.00</span>
+            </div>
+          </div>
+
+          <!-- Chart -->
+          <div id="gst-donut-chart"></div>
+        </div>
+      </div>
+
+      <!-- Explanation -->
+      <section class="info-section">
+        <h2 class="info-title">How GST is Computed</h2>
+        <div class="info-content">
+          <p>
+            Goods and Services Tax (GST) is computed depending on whether your sticker price includes tax or requires adding tax:
+          </p>
+          <div class="formula-card">
+            GST Exclusive (Add Tax):<br>
+            GST Amount = (Base Amount × GST Rate) / 100<br>
+            Gross Total = Base Amount + GST Amount<br><br>
+            GST Inclusive (Extract Tax):<br>
+            Pre-GST Base = Gross Total / (1 + (GST Rate / 100))<br>
+            GST Amount = Gross Total - Pre-GST Base
+          </div>
+          <p>
+            For intrastate transactions, the calculated GST is split equally between CGST (Central Government) and SGST (State Government).
+          </p>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="info-section">
+        <h2 class="info-title">GST Calculator FAQs</h2>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question-btn" type="button">
+              <span>What is the difference between CGST, SGST, and IGST?</span>
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-answer">
+              When a sale happens within the same state (intrastate), CGST and SGST are collected equally. When a sale occurs across state borders (interstate), Integrated GST (IGST) is collected by the Central Government.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question-btn" type="button">
+              <span>What is an Inclusive GST invoice?</span>
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-answer">
+              In an inclusive GST invoice (such as retail consumer goods with MRP), the listed price already contains the tax component. Our calculator separates the true base price from the embedded tax.
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- VIEW: 6. LOAN CALCULATOR                                 -->
+    <!-- ======================================================== -->
+    <section id="view-loan" class="page-view" aria-labelledby="loan-heading">
+      <a href="#home" class="calc-breadcrumb">← Back to All Calculators</a>
+      
+      <div class="calc-title-bar">
+        <h1 id="loan-heading" class="calc-view-title">Loan & Extra Payment Calculator</h1>
+        <p class="calc-view-subtitle">Calculate loan costs and discover how extra principal prepayments accelerate your debt-free date.</p>
+      </div>
+
+      <div class="calc-main-layout">
+        <!-- Input Form -->
+        <div class="calc-form-card">
+          <div class="form-group">
+            <div class="form-label-row">
+              <label for="loan-amount" class="form-label">Loan Amount</label>
+              <span class="form-sublabel">Principal borrowed</span>
+            </div>
+            <div class="input-with-affix">
+              <span class="input-prefix currency-symbol">₹</span>
+              <input type="number" id="loan-amount" class="form-control has-prefix" value="1500000" min="10000" max="50000000" step="25000">
+            </div>
+            <input type="range" id="loan-amount-range" class="range-slider" value="1500000" min="50000" max="5000000" step="25000">
+          </div>
+
+          <div class="form-group">
+            <div class="form-label-row">
+              <label for="loan-rate" class="form-label">Interest Rate (% p.a.)</label>
+              <span class="form-sublabel">Annual percentage</span>
+            </div>
+            <div class="input-with-affix">
+              <input type="number" id="loan-rate" class="form-control has-suffix" value="9.0" min="1" max="30" step="0.25">
+              <span class="input-suffix">%</span>
+            </div>
+            <input type="range" id="loan-rate-range" class="range-slider" value="9.0" min="1" max="25" step="0.25">
+          </div>
+
+          <div class="form-group">
+            <div class="form-label-row">
+              <label for="loan-years" class="form-label">Loan Term (Years)</label>
+              <span class="form-sublabel">Duration</span>
+            </div>
+            <div class="input-with-affix">
+              <input type="number" id="loan-years" class="form-control has-suffix" value="15" min="1" max="35" step="1">
+              <span class="input-suffix">Yr</span>
+            </div>
+            <input type="range" id="loan-years-range" class="range-slider" value="15" min="1" max="30" step="1">
+          </div>
+
+          <div class="form-group">
+            <div class="form-label-row">
+              <label for="loan-extra" class="form-label">Optional Extra Monthly Payment</label>
+              <span class="form-sublabel">Prepayment to principal</span>
+            </div>
+            <div class="input-with-affix">
+              <span class="input-prefix currency-symbol">₹</span>
+              <input type="number" id="loan-extra" class="form-control has-prefix" value="2000" min="0" max="50000" step="500">
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn-primary" onclick="calculateLoan()">Calculate</button>
+            <button type="button" class="btn-secondary" onclick="resetLoan()">Reset</button>
+          </div>
+        </div>
+
+        <!-- Results Card -->
+        <div class="calc-results-card">
+          <div class="results-hero-box">
+            <div class="results-hero-label">Total Monthly Outflow</div>
+            <div id="loan-monthly-payment" class="results-hero-value">₹ 17,213</div>
+          </div>
+
+          <div class="results-metrics-grid">
+            <div class="metric-item highlight-danger">
+              <span class="metric-label">Total Interest Paid</span>
+              <span id="loan-total-interest" class="metric-value">₹ 9,84,332</span>
+            </div>
+            <div class="metric-item highlight-primary">
+              <span class="metric-label">Total Cost of Loan</span>
+              <span id="loan-total-cost" class="metric-value">₹ 24,84,332</span>
+            </div>
+          </div>
+
+          <!-- Savings Callout -->
+          <div id="loan-savings-box" style="background: var(--success-bg); border: 1px solid var(--success); padding: 0.85rem; border-radius: var(--radius-sm); color: var(--success); font-weight: 600; font-size: 0.9rem;">
+            <span id="loan-savings-text"></span>
+          </div>
+
+          <!-- Chart -->
+          <div id="loan-donut-chart"></div>
+        </div>
+      </div>
+
+      <!-- Explanation -->
+      <section class="info-section">
+        <h2 class="info-title">Why Prepayments Make a Big Difference</h2>
+        <div class="info-content">
+          <p>
+            When you add an extra payment each month, that additional amount goes directly toward reducing the loan principal balance. Since interest in subsequent months is charged on a smaller principal, your total debt compound slows down drastically.
+          </p>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="info-section">
+        <h2 class="info-title">Loan Prepayment FAQs</h2>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question-btn" type="button">
+              <span>Are there prepayment penalties on home loans?</span>
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-answer">
+              In most countries (including India for floating rate personal home loans per RBI guidelines), banks are prohibited from charging prepayment penalties. However, fixed-rate loans or commercial loans may carry prepayment terms. Check your loan sanction letter.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question-btn" type="button">
+              <span>Is it better to shorten the tenure or reduce the EMI when prepaying?</span>
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-answer">
+              Shortening your tenure saves significantly more interest over the long run. Keeping the tenure long and reducing EMI provides more monthly cash flow flexibility, but yields lower total interest savings.
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- VIEW: ABOUT US                                           -->
+    <!-- ======================================================== -->
+    <article id="view-about" class="page-view article-page" aria-labelledby="about-title">
+      <header class="article-header">
+        <h1 id="about-title" class="article-title">About Finance Calculator Hub</h1>
+        <p class="article-meta">Published for open, transparent, client-side personal financial planning.</p>
+      </header>
+      <div class="article-body">
+        <h2>Our Mission</h2>
+        <p>
+          Finance Calculator Hub was built with a single goal: to provide individuals, investors, and homeowners with transparent, lightning-fast financial calculators free from advertising bloat, data collection, or paywalls.
+        </p>
+        <h2>Mathematical Standards & Precision</h2>
+        <p>
+          Every calculator on this platform adheres strictly to internationally standard mathematical financial principles:
+        </p>
+        <ul>
+          <li><strong>Compounding Logic:</strong> Built-in support for monthly, quarterly, semi-annual, and annual frequencies matching retail banking protocols.</li>
+          <li><strong>Amortization Curves:</strong> True reducing-balance equations ensuring that interest and principal splits match real loan passbooks.</li>
+          <li><strong>Multi-Currency Rendering:</strong> Dynamic formatting for INR (Indian numbering system), USD, EUR, GBP, and JPY.</li>
+        </ul>
+        <h2>Our 100% Client-Side Architecture</h2>
+        <p>
+          Unlike many online portals that capture your financial numbers and phone numbers for lead generation, Finance Calculator Hub runs 100% locally within your device's browser using pure HTML, CSS, and vanilla JavaScript. We do not maintain any database or server backend to record your financial entries.
+        </p>
+      </div>
+    </article>
+
+    <!-- ======================================================== -->
+    <!-- VIEW: CONTACT US                                         -->
+    <!-- ======================================================== -->
+    <article id="view-contact" class="page-view article-page" aria-labelledby="contact-title">
+      <header class="article-header">
+        <h1 id="contact-title" class="article-title">Contact & Support</h1>
+        <p class="article-meta">Have a question or calculation suggestion? Send us a message.</p>
+      </header>
+      <div class="article-body">
+        <p>
+          We are committed to continuous accuracy and reliability. If you notice any formula discrepancies, or would like to request new financial calculators, please fill out the form below:
+        </p>
+        <div id="contact-alert" class="form-alert" role="alert"></div>
+        <form id="contact-form" class="contact-form-grid" novalidate>
+          <div class="form-group">
+            <label for="contact-name" class="form-label">Full Name</label>
+            <input type="text" id="contact-name" class="form-control" placeholder="Your name" required>
+          </div>
+          <div class="form-group">
+            <label for="contact-email" class="form-label">Email Address</label>
+            <input type="email" id="contact-email" class="form-control" placeholder="you@example.com" required>
+          </div>
+          <div class="form-group">
+            <label for="contact-subject" class="form-label">Subject</label>
+            <select id="contact-subject" class="form-control">
+              <option value="feedback">General Feedback</option>
+              <option value="bug">Report a Calculation Discrepancy</option>
+              <option value="request">Feature / Calculator Request</option>
+              <option value="other">Other Inquiry</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="contact-message" class="form-label">Message</label>
+            <textarea id="contact-message" class="form-control" rows="5" placeholder="Your message or feedback..." required></textarea>
+          </div>
+          <button type="submit" class="btn-primary" style="max-width: 200px;">Send Message</button>
+        </form>
+      </div>
+    </article>
+
+    <!-- ======================================================== -->
+    <!-- VIEW: PRIVACY POLICY                                     -->
+    <!-- ======================================================== -->
+    <article id="view-privacy" class="page-view article-page" aria-labelledby="privacy-title">
+      <header class="article-header">
+        <h1 id="privacy-title" class="article-title">Privacy Policy</h1>
+        <p class="article-meta">Effective Date: September 2026 | Last Updated: September 2026</p>
+      </header>
+      <div class="article-body">
+        <h2>1. Zero Data Collection</h2>
+        <p>
+          Finance Calculator Hub operates entirely on the client-side inside your web browser. When you input principal balances, loan amounts, salaries, tax figures, or interest rates, these figures are processed exclusively in your device's active memory (RAM).
+        </p>
+        <h2>2. No Server Transmission</h2>
+        <p>
+          Our application does not send your financial entries to any remote server, database, third-party analytics company, or advertising platform.
+        </p>
+        <h2>3. Local Device Preferences</h2>
+        <p>
+          We may store your selected UI preferences (such as your chosen display currency) strictly inside standard browser memory for your convenience during your session.
+        </p>
+        <h2>4. External Links</h2>
+        <p>
+          If you follow hyperlinks leading to external websites, those third-party services operate under their own independent privacy practices. We encourage you to review their respective policies.
+        </p>
+      </div>
+    </article>
+
+    <!-- ======================================================== -->
+    <!-- VIEW: TERMS OF USE & DISCLAIMER                         -->
+    <!-- ======================================================== -->
+    <article id="view-terms" class="page-view article-page" aria-labelledby="terms-title">
+      <header class="article-header">
+        <h1 id="terms-title" class="article-title">Terms of Use & Financial Disclaimer</h1>
+        <p class="article-meta">Important terms governing your use of this calculation suite.</p>
+      </header>
+      <div class="article-body">
+        <h2>1. Informational & Illustrative Purpose Only</h2>
+        <p>
+          All calculators, algorithms, projections, charts, and schedules provided by Finance Calculator Hub are designed solely for educational, demonstrative, and informational convenience. They do not constitute formal financial, investment, accounting, tax, or legal advice.
+        </p>
+        <h2>2. No Guarantee of Returns</h2>
+        <p>
+          We make no representation, warranty, or guarantee regarding the actual performance of mutual funds, stocks, fixed deposits, interest rate fluctuations, or credit loan terms. Real-world financial outcomes depend on market fluctuations, creditworthiness, bank processing charges, taxation shifts, and compounding conventions.
+        </p>
+        <h2>3. Verification with Financial Institutions</h2>
+        <p>
+          Users are strongly advised to independently verify all financial calculations with their respective bank, lender, mutual fund distributor, or chartered financial planner before entering into binding agreements or contracts.
+        </p>
+        <h2>4. Limitation of Liability</h2>
+        <p>
+          Under no circumstances shall Finance Calculator Hub, its developers, or contributors be held liable for any financial losses, discrepancies, or damages resulting from reliance upon calculations generated by this tool.
+        </p>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>Finance Calculator Hub</h3>
+        <p>
+          High-performance, mobile-first financial calculators with bank-standard precision. 100% private, client-side, and zero-tracking.
+        </p>
+      </div>
+
+      <div class="footer-column">
+        <h4>Calculators</h4>
+        <ul class="footer-links">
+          <li><a href="#sip">SIP Calculator</a></li>
+          <li><a href="#emi">EMI Calculator</a></li>
+          <li><a href="#fd">Fixed Deposit (FD)</a></li>
+          <li><a href="#compound">Compound Interest</a></li>
+          <li><a href="#gst">GST Calculator</a></li>
+          <li><a href="#loan">Loan & Payoff Calculator</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4>About & Policies</h4>
+        <ul class="footer-links">
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#contact">Contact Support</a></li>
+          <li><a href="#privacy">Privacy Policy</a></li>
+          <li><a href="#terms">Terms of Service & Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>
+        <strong>Disclaimer:</strong> Calculations are informational estimates only and do not constitute financial advice. Always verify with your financial institution.
+      </p>
+      <p>© 2026 Finance Calculator Hub. Designed for high speed, accessibility, and privacy.</p>
+    </div>
+  </footer>
+
+  <!-- Core JavaScript -->
+  <script src="js/app.js"></script>
+</body>
+</html>
