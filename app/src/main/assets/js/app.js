@@ -1,12 +1,11 @@
 /**
- * Finance Calculator Hub - Core Logic & Calculator Engines
- * Pure Vanilla JavaScript | Zero external libraries | 100% Client-side
+ * Finance Calculator Hub - Core Logic & Mathematical Engines
+ * 100% Client-side | Zero Tracking | Bank-Standard Formulations
  */
 
 // Global State
 const State = {
   currency: '₹', // Default currency
-  currencyCode: 'INR',
   activeView: 'home',
   calculatorDefaults: {
     sip: { monthly: 10000, rate: 12, years: 10 },
@@ -18,62 +17,117 @@ const State = {
   }
 };
 
-// Currency formats
+// Currency definitions with corresponding locales and ISO codes
 const Currencies = {
-  '₹': { symbol: '₹', locale: 'en-IN', code: 'INR' },
-  '$': { symbol: '$', locale: 'en-US', code: 'USD' },
-  '€': { symbol: '€', locale: 'de-DE', code: 'EUR' },
-  '£': { symbol: '£', locale: 'en-GB', code: 'GBP' },
-  '¥': { symbol: '¥', locale: 'ja-JP', code: 'JPY' }
+  '₹': { symbol: '₹', locale: 'en-IN', code: 'INR', name: 'Indian Rupee' },
+  '$': { symbol: '$', locale: 'en-US', code: 'USD', name: 'US Dollar' },
+  '€': { symbol: '€', locale: 'de-DE', code: 'EUR', name: 'Euro' },
+  '£': { symbol: '£', locale: 'en-GB', code: 'GBP', name: 'British Pound' },
+  '¥': { symbol: '¥', locale: 'ja-JP', code: 'JPY', name: 'Japanese Yen' }
 };
 
-// Formatter utility
+// Load saved currency preference from localStorage
+try {
+  const savedCurrency = localStorage.getItem('fch_currency');
+  if (savedCurrency && Currencies[savedCurrency]) {
+    State.currency = savedCurrency;
+  }
+} catch (e) {
+  // Graceful fallback if localStorage is disabled or restricted
+}
+
+/**
+ * Formats a monetary amount using the selected currency's locale format.
+ * Guarantees that NaN, Infinity, or undefined are never displayed.
+ * Calculations directly use the entered amount in the chosen currency (no fake conversion).
+ */
 function formatMoney(amount, showDecimals = false) {
-  if (isNaN(amount) || amount === null || amount === undefined) return `${State.currency}0`;
+  if (amount === null || amount === undefined || isNaN(amount) || !isFinite(amount)) {
+    return `${State.currency} 0`;
+  }
+
+  // Prevent negative zero artifact (-0)
+  const cleanAmount = Math.abs(amount) < 0.0001 ? 0 : amount;
   const curr = Currencies[State.currency] || Currencies['₹'];
+
+  // Japanese Yen does not use fractional subunit decimals
+  const decimals = curr.code === 'JPY' ? 0 : (showDecimals ? 2 : 0);
+
   try {
     const formatted = new Intl.NumberFormat(curr.locale, {
-      minimumFractionDigits: showDecimals ? 2 : 0,
-      maximumFractionDigits: showDecimals ? 2 : 0
-    }).format(Math.round(amount * 100) / 100);
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals
+    }).format(cleanAmount);
     return `${State.currency} ${formatted}`;
   } catch (e) {
-    return `${State.currency} ${amount.toFixed(showDecimals ? 2 : 0)}`;
+    return `${State.currency} ${cleanAmount.toFixed(decimals)}`;
   }
 }
 
+/**
+ * Updates all currency symbols across input prefixes and recalculates visible calculators.
+ */
 function updateCurrencyDisplays() {
+  // Sync all currency select elements on page
+  document.querySelectorAll('.currency-select').forEach(select => {
+    select.value = State.currency;
+  });
+
+  // Update all currency indicator spans
   document.querySelectorAll('.currency-symbol').forEach(el => {
     el.textContent = State.currency;
   });
-  // Recalculate all visible calculator cards or views
-  calculateSIP();
-  calculateEMI();
-  calculateFD();
-  calculateCompound();
-  calculateGST();
-  calculateLoan();
+
+  // Persist preference
+  try {
+    localStorage.setItem('fch_currency', State.currency);
+  } catch (e) {}
+
+  // Recalculate any calculator present on the current page/view
+  if (document.getElementById('sip-amount')) calculateSIP();
+  if (document.getElementById('emi-principal')) calculateEMI();
+  if (document.getElementById('fd-principal')) calculateFD();
+  if (document.getElementById('ci-principal')) calculateCompound();
+  if (document.getElementById('gst-amount')) calculateGST();
+  if (document.getElementById('loan-amount')) calculateLoan();
 }
 
 // -------------------------------------------------------------
 // 1. SIP CALCULATOR ENGINE
 // Formula: FV = P * [((1 + i)^n - 1) / i] * (1 + i)
+// Where:
+// P = Monthly investment
+// i = Monthly interest rate (annual rate / 12 / 100)
+// n = Total monthly installments (years * 12)
 // -------------------------------------------------------------
 function calculateSIP() {
-  const monthly = parseFloat(document.getElementById('sip-amount')?.value) || 0;
-  const annualRate = parseFloat(document.getElementById('sip-rate')?.value) || 0;
-  const years = parseFloat(document.getElementById('sip-years')?.value) || 0;
+  const amountEl = document.getElementById('sip-amount');
+  if (!amountEl) return;
+
+  const monthlyRaw = parseFloat(amountEl.value);
+  const rateRaw = parseFloat(document.getElementById('sip-rate')?.value);
+  const yearsRaw = parseFloat(document.getElementById('sip-years')?.value);
+
+  const monthly = isNaN(monthlyRaw) || monthlyRaw < 0 ? 0 : monthlyRaw;
+  const annualRate = isNaN(rateRaw) || rateRaw < 0 ? 0 : rateRaw;
+  const years = isNaN(yearsRaw) || yearsRaw < 0 ? 0 : Math.min(yearsRaw, 50);
 
   const totalMonths = Math.round(years * 12);
   const monthlyRate = (annualRate / 100) / 12;
 
-  let totalInvestment = monthly * totalMonths;
+  const totalInvestment = monthly * totalMonths;
   let futureValue = 0;
 
-  if (monthlyRate === 0) {
+  if (totalInvestment === 0 || totalMonths === 0) {
+    futureValue = 0;
+  } else if (monthlyRate === 0) {
     futureValue = totalInvestment;
   } else {
     futureValue = monthly * ((Math.pow(1 + monthlyRate, totalMonths) - 1) / monthlyRate) * (1 + monthlyRate);
+  }
+
+  if (!isFinite(futureValue) || futureValue < 0) {
+    futureValue = totalInvestment;
   }
 
   const estimatedReturns = Math.max(0, futureValue - totalInvestment);
@@ -87,18 +141,19 @@ function calculateSIP() {
   if (investedEl) investedEl.textContent = formatMoney(totalInvestment);
   if (returnsEl) returnsEl.textContent = formatMoney(estimatedReturns);
 
-  // Update Chart
+  // Update Donut Chart
   drawDonutChart('sip-donut-chart', [
     { label: 'Invested', value: totalInvestment, color: 'var(--primary)' },
-    { label: 'Returns', value: estimatedReturns, color: 'var(--success)' }
+    { label: 'Est. Returns', value: estimatedReturns, color: 'var(--success)' }
   ]);
 
-  // Generate Year by Year breakdown
+  // Generate Year-by-Year Growth Table
   const tableBody = document.getElementById('sip-schedule-body');
   if (tableBody) {
     let rowsHtml = '';
-    let currentBalance = 0;
-    for (let y = 1; y <= Math.min(years, 30); y++) {
+    const maxYearsToDisplay = Math.min(Math.floor(years), 30);
+
+    for (let y = 1; y <= maxYearsToDisplay; y++) {
       const monthsSoFar = y * 12;
       const investedSoFar = monthly * monthsSoFar;
       let bal = 0;
@@ -107,7 +162,9 @@ function calculateSIP() {
       } else {
         bal = monthly * ((Math.pow(1 + monthlyRate, monthsSoFar) - 1) / monthlyRate) * (1 + monthlyRate);
       }
-      const returnsSoFar = bal - investedSoFar;
+      if (!isFinite(bal)) bal = investedSoFar;
+      const returnsSoFar = Math.max(0, bal - investedSoFar);
+
       rowsHtml += `
         <tr>
           <td>Year ${y}</td>
@@ -134,12 +191,23 @@ function resetSIP() {
 
 // -------------------------------------------------------------
 // 2. EMI CALCULATOR ENGINE
-// Formula: E = P * r * (1 + r)^n / ((1 + r)^n - 1)
+// Formula: E = [P * r * (1 + r)^n] / [(1 + r)^n - 1]
+// Where:
+// P = Loan principal
+// r = Monthly interest rate (annual rate / 12 / 100)
+// n = Number of monthly installments (years * 12)
 // -------------------------------------------------------------
 function calculateEMI() {
-  const principal = parseFloat(document.getElementById('emi-principal')?.value) || 0;
-  const annualRate = parseFloat(document.getElementById('emi-rate')?.value) || 0;
-  const years = parseFloat(document.getElementById('emi-tenure')?.value) || 0;
+  const principalEl = document.getElementById('emi-principal');
+  if (!principalEl) return;
+
+  const principalRaw = parseFloat(principalEl.value);
+  const rateRaw = parseFloat(document.getElementById('emi-rate')?.value);
+  const yearsRaw = parseFloat(document.getElementById('emi-tenure')?.value);
+
+  const principal = isNaN(principalRaw) || principalRaw < 0 ? 0 : principalRaw;
+  const annualRate = isNaN(rateRaw) || rateRaw < 0 ? 0 : rateRaw;
+  const years = isNaN(yearsRaw) || yearsRaw < 0 ? 0 : Math.min(yearsRaw, 40);
 
   const totalMonths = Math.round(years * 12);
   const monthlyRate = (annualRate / 100) / 12;
@@ -151,45 +219,55 @@ function calculateEMI() {
     emi = principal / totalMonths;
   } else {
     const factor = Math.pow(1 + monthlyRate, totalMonths);
-    emi = (principal * monthlyRate * factor) / (factor - 1);
+    if (!isFinite(factor) || factor <= 1) {
+      emi = principal / totalMonths;
+    } else {
+      emi = (principal * monthlyRate * factor) / (factor - 1);
+    }
   }
+
+  if (!isFinite(emi) || emi < 0) emi = 0;
 
   const totalPayment = emi * totalMonths;
   const totalInterest = Math.max(0, totalPayment - principal);
 
-  // Update UI
+  // Update UI Elements
   const emiValEl = document.getElementById('emi-monthly-val');
-  const principalEl = document.getElementById('emi-principal-val');
+  const prinEl = document.getElementById('emi-principal-val');
   const interestEl = document.getElementById('emi-total-interest');
   const totalPayEl = document.getElementById('emi-total-payment');
 
   if (emiValEl) emiValEl.textContent = formatMoney(emi);
-  if (principalEl) principalEl.textContent = formatMoney(principal);
+  if (prinEl) prinEl.textContent = formatMoney(principal);
   if (interestEl) interestEl.textContent = formatMoney(totalInterest);
   if (totalPayEl) totalPayEl.textContent = formatMoney(totalPayment);
 
-  // Update Chart
+  // Update Donut Chart
   drawDonutChart('emi-donut-chart', [
     { label: 'Principal', value: principal, color: 'var(--primary)' },
     { label: 'Total Interest', value: totalInterest, color: 'var(--danger)' }
   ]);
 
-  // Generate Amortization Preview Table (Yearly)
+  // Generate Amortization Table (Yearly)
   const tableBody = document.getElementById('emi-schedule-body');
   if (tableBody) {
     let rowsHtml = '';
     let balance = principal;
-    for (let y = 1; y <= Math.min(years, 30); y++) {
+    const maxYears = Math.min(Math.floor(years), 30);
+
+    for (let y = 1; y <= maxYears; y++) {
       let yearlyInterest = 0;
       let yearlyPrincipal = 0;
+
       for (let m = 1; m <= 12; m++) {
-        if (balance <= 0) break;
+        if (balance <= 0.01) break;
         const interestMonth = balance * monthlyRate;
         const principalMonth = Math.min(balance, emi - interestMonth);
         yearlyInterest += interestMonth;
         yearlyPrincipal += principalMonth;
-        balance -= principalMonth;
+        balance = Math.max(0, balance - principalMonth);
       }
+
       rowsHtml += `
         <tr>
           <td>Year ${y}</td>
@@ -198,7 +276,8 @@ function calculateEMI() {
           <td>${formatMoney(Math.max(0, balance))}</td>
         </tr>
       `;
-      if (balance <= 0) break;
+
+      if (balance <= 0.01) break;
     }
     tableBody.innerHTML = rowsHtml;
   }
@@ -216,25 +295,43 @@ function resetEMI() {
 }
 
 // -------------------------------------------------------------
-// 3. FD CALCULATOR ENGINE
+// 3. FIXED DEPOSIT (FD) CALCULATOR ENGINE
 // Formula: A = P * (1 + r / n)^(n * t)
+// Where:
+// P = Principal deposit
+// r = Annual nominal interest rate (decimal)
+// n = Compounding periods per year (Quarterly = 4)
+// t = Duration in years
 // -------------------------------------------------------------
 function calculateFD() {
-  const principal = parseFloat(document.getElementById('fd-principal')?.value) || 0;
-  const annualRate = parseFloat(document.getElementById('fd-rate')?.value) || 0;
-  const years = parseFloat(document.getElementById('fd-tenure')?.value) || 0;
+  const principalEl = document.getElementById('fd-principal');
+  if (!principalEl) return;
+
+  const principalRaw = parseFloat(principalEl.value);
+  const rateRaw = parseFloat(document.getElementById('fd-rate')?.value);
+  const yearsRaw = parseFloat(document.getElementById('fd-tenure')?.value);
   const compFrequency = parseInt(document.getElementById('fd-compounding')?.value || '4', 10);
+
+  const principal = isNaN(principalRaw) || principalRaw < 0 ? 0 : principalRaw;
+  const annualRate = isNaN(rateRaw) || rateRaw < 0 ? 0 : rateRaw;
+  const years = isNaN(yearsRaw) || yearsRaw < 0 ? 0 : Math.min(yearsRaw, 30);
 
   const r = annualRate / 100;
   let maturity = 0;
 
-  if (compFrequency === 0) {
+  if (principal <= 0 || years <= 0) {
+    maturity = principal;
+  } else if (compFrequency === 0 || r === 0) {
     // Simple Interest
-    const interest = (principal * annualRate * years) / 100;
-    maturity = principal + interest;
+    const simpleInterest = (principal * annualRate * years) / 100;
+    maturity = principal + simpleInterest;
   } else {
     // Compound Interest
     maturity = principal * Math.pow(1 + (r / compFrequency), compFrequency * years);
+  }
+
+  if (!isFinite(maturity) || maturity < principal) {
+    maturity = principal;
   }
 
   const interestEarned = Math.max(0, maturity - principal);
@@ -247,10 +344,10 @@ function calculateFD() {
   if (prinEl) prinEl.textContent = formatMoney(principal);
   if (intEl) intEl.textContent = formatMoney(interestEarned);
 
-  // Update Chart
+  // Update Donut Chart
   drawDonutChart('fd-donut-chart', [
-    { label: 'Principal', value: principal, color: 'var(--primary)' },
-    { label: 'Interest', value: interestEarned, color: 'var(--success)' }
+    { label: 'Principal Deposit', value: principal, color: 'var(--primary)' },
+    { label: 'Interest Earned', value: interestEarned, color: 'var(--success)' }
   ]);
 }
 
@@ -269,32 +366,37 @@ function resetFD() {
 
 // -------------------------------------------------------------
 // 4. COMPOUND INTEREST CALCULATOR
-// Computes Base Principal + Recurring Monthly Contributions
+// Computes Base Principal + Optional Recurring Monthly Contributions
 // -------------------------------------------------------------
 function calculateCompound() {
-  const principal = parseFloat(document.getElementById('ci-principal')?.value) || 0;
-  const annualRate = parseFloat(document.getElementById('ci-rate')?.value) || 0;
-  const years = parseFloat(document.getElementById('ci-tenure')?.value) || 0;
-  const monthlyAdd = parseFloat(document.getElementById('ci-monthly')?.value) || 0;
-  const compPerYear = parseInt(document.getElementById('ci-compounding')?.value || '12', 10);
+  const principalEl = document.getElementById('ci-principal');
+  if (!principalEl) return;
 
-  const r = annualRate / 100;
+  const principalRaw = parseFloat(principalEl.value);
+  const rateRaw = parseFloat(document.getElementById('ci-rate')?.value);
+  const yearsRaw = parseFloat(document.getElementById('ci-tenure')?.value);
+  const monthlyAddRaw = parseFloat(document.getElementById('ci-monthly')?.value);
+
+  const principal = isNaN(principalRaw) || principalRaw < 0 ? 0 : principalRaw;
+  const annualRate = isNaN(rateRaw) || rateRaw < 0 ? 0 : rateRaw;
+  const years = isNaN(yearsRaw) || yearsRaw < 0 ? 0 : Math.min(yearsRaw, 50);
+  const monthlyAdd = isNaN(monthlyAddRaw) || monthlyAddRaw < 0 ? 0 : monthlyAddRaw;
+
   const totalMonths = Math.round(years * 12);
-  const monthlyRate = r / 12;
+  const monthlyRate = (annualRate / 100) / 12;
 
   let balance = principal;
   let totalAdditions = 0;
-
-  // Month-by-month compounding simulation with monthly additions
   const rows = [];
+
   for (let m = 1; m <= totalMonths; m++) {
-    // Interest earned this month
     const interest = balance * monthlyRate;
     balance += interest;
     if (monthlyAdd > 0) {
       balance += monthlyAdd;
       totalAdditions += monthlyAdd;
     }
+
     if (m % 12 === 0) {
       rows.push({
         year: m / 12,
@@ -302,6 +404,10 @@ function calculateCompound() {
         balance: balance
       });
     }
+  }
+
+  if (!isFinite(balance) || balance < 0) {
+    balance = principal + totalAdditions;
   }
 
   const totalDeposited = principal + totalAdditions;
@@ -317,19 +423,19 @@ function calculateCompound() {
   if (addValEl) addValEl.textContent = formatMoney(totalAdditions);
   if (intValEl) intValEl.textContent = formatMoney(totalInterest);
 
-  // Update Chart
+  // Update Donut Chart
   drawDonutChart('ci-donut-chart', [
-    { label: 'Initial', value: principal, color: 'var(--primary)' },
-    { label: 'Additions', value: totalAdditions, color: '#6366f1' },
-    { label: 'Interest', value: totalInterest, color: 'var(--success)' }
+    { label: 'Initial Principal', value: principal, color: 'var(--primary)' },
+    { label: 'Monthly Additions', value: totalAdditions, color: '#6366f1' },
+    { label: 'Compound Interest', value: totalInterest, color: 'var(--success)' }
   ]);
 
-  // Schedule Table
+  // Trajectory Table
   const tableBody = document.getElementById('ci-schedule-body');
   if (tableBody) {
     let rowsHtml = '';
     rows.forEach(item => {
-      const intSoFar = item.balance - item.invested;
+      const intSoFar = Math.max(0, item.balance - item.invested);
       rowsHtml += `
         <tr>
           <td>Year ${item.year}</td>
@@ -353,8 +459,6 @@ function resetCompound() {
   setInputValue('ci-tenure-range', d.years);
   setInputValue('ci-monthly', d.monthly);
   setInputValue('ci-monthly-range', d.monthly);
-  const sel = document.getElementById('ci-compounding');
-  if (sel) sel.value = d.comp;
   calculateCompound();
 }
 
@@ -373,6 +477,7 @@ function setGstMode(mode) {
       el.classList.remove('active');
     }
   });
+
   const labelEl = document.getElementById('gst-amount-label');
   if (labelEl) {
     labelEl.textContent = mode === 'exclusive' ? 'Base Amount (Excluding GST)' : 'Total Invoice Amount (Including GST)';
@@ -393,8 +498,14 @@ function setGstRate(rate) {
 }
 
 function calculateGST() {
-  const amount = parseFloat(document.getElementById('gst-amount')?.value) || 0;
-  const rate = parseFloat(document.getElementById('gst-rate')?.value) || 0;
+  const amountEl = document.getElementById('gst-amount');
+  if (!amountEl) return;
+
+  const amountRaw = parseFloat(amountEl.value);
+  const rateRaw = parseFloat(document.getElementById('gst-rate')?.value);
+
+  const amount = isNaN(amountRaw) || amountRaw < 0 ? 0 : amountRaw;
+  const rate = isNaN(rateRaw) || rateRaw < 0 ? 0 : rateRaw;
 
   let netAmount = 0;
   let gstAmount = 0;
@@ -408,9 +519,13 @@ function calculateGST() {
   } else {
     // Remove GST from gross amount
     totalAmount = amount;
-    netAmount = amount / (1 + (rate / 100));
-    gstAmount = totalAmount - netAmount;
+    netAmount = rate > 0 ? (amount / (1 + (rate / 100))) : amount;
+    gstAmount = Math.max(0, totalAmount - netAmount);
   }
+
+  if (!isFinite(totalAmount)) totalAmount = 0;
+  if (!isFinite(netAmount)) netAmount = 0;
+  if (!isFinite(gstAmount)) gstAmount = 0;
 
   const cgst = gstAmount / 2;
   const sgst = gstAmount / 2;
@@ -427,7 +542,7 @@ function calculateGST() {
   if (cgstEl) cgstEl.textContent = formatMoney(cgst, true);
   if (sgstEl) sgstEl.textContent = formatMoney(sgst, true);
 
-  // Update Chart
+  // Update Donut Chart
   drawDonutChart('gst-donut-chart', [
     { label: 'Net Amount', value: netAmount, color: 'var(--primary)' },
     { label: 'GST Tax', value: gstAmount, color: 'var(--warning)' }
@@ -443,45 +558,65 @@ function resetGST() {
 }
 
 // -------------------------------------------------------------
-// 6. LOAN CALCULATOR ENGINE
-// Supports loan terms and optional extra monthly prepayments
+// 6. LOAN & EXTRA PAYMENT CALCULATOR
+// Evaluates standard amortization and interest saved via prepayments
 // -------------------------------------------------------------
 function calculateLoan() {
-  const principal = parseFloat(document.getElementById('loan-amount')?.value) || 0;
-  const annualRate = parseFloat(document.getElementById('loan-rate')?.value) || 0;
-  const years = parseFloat(document.getElementById('loan-years')?.value) || 0;
-  const extraMonthly = parseFloat(document.getElementById('loan-extra')?.value) || 0;
+  const loanEl = document.getElementById('loan-amount');
+  if (!loanEl) return;
+
+  const principalRaw = parseFloat(loanEl.value);
+  const rateRaw = parseFloat(document.getElementById('loan-rate')?.value);
+  const yearsRaw = parseFloat(document.getElementById('loan-years')?.value);
+  const extraMonthlyRaw = parseFloat(document.getElementById('loan-extra')?.value);
+
+  const principal = isNaN(principalRaw) || principalRaw < 0 ? 0 : principalRaw;
+  const annualRate = isNaN(rateRaw) || rateRaw < 0 ? 0 : rateRaw;
+  const years = isNaN(yearsRaw) || yearsRaw < 0 ? 0 : Math.min(yearsRaw, 40);
+  const extraMonthly = isNaN(extraMonthlyRaw) || extraMonthlyRaw < 0 ? 0 : extraMonthlyRaw;
 
   const totalMonths = Math.round(years * 12);
   const monthlyRate = (annualRate / 100) / 12;
 
   let baseEmi = 0;
-  if (monthlyRate === 0) {
-    baseEmi = totalMonths > 0 ? principal / totalMonths : 0;
-  } else if (totalMonths > 0) {
+  if (principal <= 0 || totalMonths <= 0) {
+    baseEmi = 0;
+  } else if (monthlyRate === 0) {
+    baseEmi = principal / totalMonths;
+  } else {
     const factor = Math.pow(1 + monthlyRate, totalMonths);
     baseEmi = (principal * monthlyRate * factor) / (factor - 1);
   }
 
-  // Simulation with and without extra payments
+  if (!isFinite(baseEmi)) baseEmi = 0;
+
+  // Simulation with extra payments
   let balanceWithExtra = principal;
   let totalInterestWithExtra = 0;
   let monthsWithExtra = 0;
   const totalMonthlyPay = baseEmi + extraMonthly;
 
-  while (balanceWithExtra > 0.01 && monthsWithExtra < 600) {
+  const maxSimulationMonths = 1200; // 100 years guard
+  while (balanceWithExtra > 0.01 && monthsWithExtra < maxSimulationMonths) {
     monthsWithExtra++;
     const intMonth = balanceWithExtra * monthlyRate;
     totalInterestWithExtra += intMonth;
-    const prinMonth = Math.min(balanceWithExtra, totalMonthlyPay - intMonth);
+
+    // Principal portion paid this month
+    const prinMonth = Math.min(balanceWithExtra, Math.max(0, totalMonthlyPay - intMonth));
     balanceWithExtra -= prinMonth;
+
+    // Safety guard: if payment doesn't even cover monthly interest, break to prevent infinite loop
+    if (totalMonthlyPay <= intMonth && balanceWithExtra > 0) {
+      break;
+    }
   }
 
-  const standardTotalInterest = (baseEmi * totalMonths) - principal;
+  const standardTotalInterest = Math.max(0, (baseEmi * totalMonths) - principal);
   const interestSaved = Math.max(0, standardTotalInterest - totalInterestWithExtra);
   const monthsSaved = Math.max(0, totalMonths - monthsWithExtra);
 
-  // Update UI
+  // Update UI Elements
   const monthlyPayEl = document.getElementById('loan-monthly-payment');
   const totalInterestEl = document.getElementById('loan-total-interest');
   const totalCostEl = document.getElementById('loan-total-cost');
@@ -496,7 +631,7 @@ function calculateLoan() {
     if (extraMonthly > 0 && interestSaved > 0) {
       savedBox.style.display = 'block';
       const yearsSavedStr = (monthsSaved / 12).toFixed(1);
-      savedText.textContent = `By paying an extra ${formatMoney(extraMonthly)}/mo, you save ${formatMoney(interestSaved)} in interest and pay off your loan ${yearsSavedStr} years earlier!`;
+      savedText.textContent = `By prepaying ${formatMoney(extraMonthly)} extra each month, you save ${formatMoney(interestSaved)} in interest and extinguish your debt ${yearsSavedStr} years earlier.`;
     } else {
       savedBox.style.display = 'none';
     }
@@ -505,7 +640,7 @@ function calculateLoan() {
   // Draw Chart
   drawDonutChart('loan-donut-chart', [
     { label: 'Principal', value: principal, color: 'var(--primary)' },
-    { label: 'Interest', value: totalInterestWithExtra, color: 'var(--danger)' }
+    { label: 'Total Interest', value: totalInterestWithExtra, color: 'var(--danger)' }
   ]);
 }
 
@@ -528,9 +663,9 @@ function drawDonutChart(containerId, data) {
   const container = document.getElementById(containerId);
   if (!container) return;
 
-  const total = data.reduce((acc, item) => acc + (item.value || 0), 0);
+  const total = data.reduce((acc, item) => acc + (Math.max(0, item.value) || 0), 0);
   if (total <= 0) {
-    container.innerHTML = '<div style="color: var(--text-light); font-size: 0.8rem; padding: 2rem;">Enter values to see chart</div>';
+    container.innerHTML = '<div style="color: var(--text-light); font-size: 0.85rem; padding: 2rem; text-align: center;">Enter values to view distribution chart</div>';
     return;
   }
 
@@ -542,7 +677,7 @@ function drawDonutChart(containerId, data) {
   let legendHtml = '';
 
   data.forEach(slice => {
-    const sliceVal = slice.value || 0;
+    const sliceVal = Math.max(0, slice.value || 0);
     const fraction = sliceVal / total;
     const strokeDash = fraction * circumference;
     const percentage = Math.round(fraction * 100);
@@ -557,7 +692,7 @@ function drawDonutChart(containerId, data) {
         stroke-width="14"
         stroke-dasharray="${strokeDash} ${circumference - strokeDash}"
         stroke-dashoffset="${-cumulativeOffset}"
-        style="transition: stroke-dasharray 0.4s ease, stroke-dashoffset 0.4s ease;"
+        style="transition: stroke-dasharray 0.3s ease, stroke-dashoffset 0.3s ease;"
       />
     `;
     cumulativeOffset += strokeDash;
@@ -572,7 +707,7 @@ function drawDonutChart(containerId, data) {
 
   container.innerHTML = `
     <div class="chart-container">
-      <svg class="donut-svg" viewBox="0 0 120 120">
+      <svg class="donut-svg" viewBox="0 0 120 120" role="img" aria-label="Financial Breakdown Donut Chart">
         <circle cx="60" cy="60" r="${radius}" fill="transparent" stroke="var(--border-color)" stroke-width="14" opacity="0.3" />
         ${circlesHtml}
       </svg>
@@ -583,7 +718,7 @@ function drawDonutChart(containerId, data) {
   `;
 }
 
-// Helper: sync input and range
+// Helper: sync input and range sliders
 function linkInputAndRange(inputId, rangeId, callback) {
   const inputEl = document.getElementById(inputId);
   const rangeEl = document.getElementById(rangeId);
@@ -607,12 +742,18 @@ function setInputValue(id, val) {
 }
 
 // -------------------------------------------------------------
-// SPA Navigation & Routing
+// SPA Navigation & Multi-View Router (When on index.html)
 // -------------------------------------------------------------
 function navigateTo(viewId) {
   const validViews = ['home', 'sip', 'emi', 'fd', 'compound', 'gst', 'loan', 'about', 'contact', 'privacy', 'terms'];
   const target = validViews.includes(viewId) ? viewId : 'home';
   State.activeView = target;
+
+  const targetView = document.getElementById(`view-${target}`);
+  if (!targetView) {
+    // If we're on a standalone page, standard browser navigation applies
+    return;
+  }
 
   // Show only active view
   document.querySelectorAll('.page-view').forEach(view => {
@@ -625,7 +766,8 @@ function navigateTo(viewId) {
 
   // Update nav links active state
   document.querySelectorAll('.nav-link').forEach(link => {
-    if (link.getAttribute('href') === `#${target}`) {
+    const href = link.getAttribute('href');
+    if (href === `#${target}` || href === `${target}-calculator.html` || (target === 'home' && (href === '#home' || href === 'index.html'))) {
       link.classList.add('active');
     } else {
       link.classList.remove('active');
@@ -634,7 +776,8 @@ function navigateTo(viewId) {
 
   // Update quick pills active state
   document.querySelectorAll('.quick-pill').forEach(pill => {
-    if (pill.getAttribute('href') === `#${target}`) {
+    const href = pill.getAttribute('href');
+    if (href === `#${target}` || href === `${target}-calculator.html`) {
       pill.classList.add('active');
     } else {
       pill.classList.remove('active');
@@ -645,25 +788,54 @@ function navigateTo(viewId) {
   const navMenu = document.getElementById('nav-links');
   if (navMenu) navMenu.classList.remove('show');
 
-  // Scroll to top
+  // Smooth scroll to top
   window.scrollTo({ top: 0, behavior: 'smooth' });
 
-  // Update page title dynamically for SEO & clarity
+  // Update document title
   const titles = {
-    home: 'Finance Calculator Hub - Fast, Free & Client-Side Financial Calculators',
+    home: 'Free Online Financial Calculators - Finance Calculator Hub',
     sip: 'SIP Calculator - Systematic Investment Plan Returns | Finance Hub',
     emi: 'EMI Calculator - Loan EMI, Interest & Amortization | Finance Hub',
     fd: 'Fixed Deposit (FD) Calculator - Interest & Maturity | Finance Hub',
-    compound: 'Compound Interest Calculator - Recurring Growth | Finance Hub',
+    compound: 'Compound Interest Calculator - Multi-Year Growth | Finance Hub',
     gst: 'GST Calculator - Add & Remove GST with Tax Slabs | Finance Hub',
-    loan: 'Loan Calculator - Payoff Schedule & Savings | Finance Hub',
-    about: 'About Us - Mission & Methodology | Finance Calculator Hub',
+    loan: 'Loan Calculator - Payoff Schedule & Prepayment Savings | Finance Hub',
+    about: 'About Us - Educational Mission & Methodology | Finance Calculator Hub',
     contact: 'Contact Us - Feedback & Inquiries | Finance Calculator Hub',
-    privacy: 'Privacy Policy - Zero Tracking, 100% Client-Side | Finance Hub',
-    terms: 'Terms of Use & Financial Disclaimer | Finance Calculator Hub'
+    privacy: 'Privacy Policy - 100% Client-Side Privacy | Finance Hub',
+    terms: 'Terms of Service & Financial Estimation Disclaimer | Finance Hub'
   };
+
   if (titles[target]) {
     document.title = titles[target];
+  }
+}
+
+// -------------------------------------------------------------
+// Copy Text Utility
+// -------------------------------------------------------------
+function copyToClipboard(text, btnElement, successMsg = 'Copied!') {
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(() => {
+      const origText = btnElement.innerHTML;
+      btnElement.innerHTML = `✓ ${successMsg}`;
+      setTimeout(() => { btnElement.innerHTML = origText; }, 2000);
+    });
+  } else {
+    // Fallback
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.opacity = '0';
+    document.body.appendChild(textArea);
+    textArea.select();
+    try {
+      document.execCommand('copy');
+      const origText = btnElement.innerHTML;
+      btnElement.innerHTML = `✓ ${successMsg}`;
+      setTimeout(() => { btnElement.innerHTML = origText; }, 2000);
+    } catch (err) {}
+    document.body.removeChild(textArea);
   }
 }
 
@@ -676,20 +848,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const navLinks = document.getElementById('nav-links');
   if (toggleBtn && navLinks) {
     toggleBtn.addEventListener('click', () => {
-      navLinks.classList.toggle('show');
+      const isExpanded = navLinks.classList.toggle('show');
+      toggleBtn.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
     });
   }
 
-  // Currency Selector
-  const currSelect = document.getElementById('currency-select');
-  if (currSelect) {
-    currSelect.addEventListener('change', (e) => {
+  // Currency Selector Syncing
+  document.querySelectorAll('.currency-select').forEach(select => {
+    select.value = State.currency;
+    select.addEventListener('change', (e) => {
       State.currency = e.target.value;
       updateCurrencyDisplays();
     });
-  }
+  });
 
-  // Link Sliders with Number Inputs
+  // Link Sliders with Inputs across all calculators
   linkInputAndRange('sip-amount', 'sip-amount-range', calculateSIP);
   linkInputAndRange('sip-rate', 'sip-rate-range', calculateSIP);
   linkInputAndRange('sip-years', 'sip-years-range', calculateSIP);
@@ -708,8 +881,6 @@ document.addEventListener('DOMContentLoaded', () => {
   linkInputAndRange('ci-rate', 'ci-rate-range', calculateCompound);
   linkInputAndRange('ci-tenure', 'ci-tenure-range', calculateCompound);
   linkInputAndRange('ci-monthly', 'ci-monthly-range', calculateCompound);
-  const ciComp = document.getElementById('ci-compounding');
-  if (ciComp) ciComp.addEventListener('change', calculateCompound);
 
   const gstAmount = document.getElementById('gst-amount');
   const gstRate = document.getElementById('gst-rate');
@@ -727,33 +898,42 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => {
       const item = btn.closest('.faq-item');
       if (item) {
-        item.classList.toggle('active');
+        const isActive = item.classList.toggle('active');
+        btn.setAttribute('aria-expanded', isActive ? 'true' : 'false');
       }
     });
   });
 
-  // Setup Contact Form
+  // Setup Static Contact Form (Transparent, No fake claims)
   const contactForm = document.getElementById('contact-form');
   const contactAlert = document.getElementById('contact-alert');
   if (contactForm && contactAlert) {
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
+      const subject = encodeURIComponent(document.getElementById('contact-subject')?.value || 'Finance Calculator Inquiry');
+      const message = encodeURIComponent(document.getElementById('contact-message')?.value || '');
+      const mailtoUri = `mailto:contact@financecalculatorhub.com?subject=${subject}&body=${message}`;
+      
       contactAlert.classList.add('success');
-      contactAlert.textContent = 'Thank you for reaching out! Your message has been recorded locally.';
-      contactForm.reset();
+      contactAlert.style.display = 'block';
+      contactAlert.innerHTML = `
+        <strong>Message Prepared!</strong> As this site operates 100% statically on GitHub Pages without server storage, 
+        <a href="${mailtoUri}" style="font-weight: 700; text-decoration: underline;">click here to send your inquiry directly via your email app</a>.
+      `;
     });
   }
 
-  // Setup Hash Routing
-  window.addEventListener('hashchange', () => {
-    const hash = window.location.hash.replace('#', '') || 'home';
-    navigateTo(hash);
-  });
+  // Setup Hash Routing (on pages that contain view containers)
+  if (document.getElementById('view-home')) {
+    window.addEventListener('hashchange', () => {
+      const hash = window.location.hash.replace('#', '') || 'home';
+      navigateTo(hash);
+    });
 
-  // Initial Route Check
-  const initialHash = window.location.hash.replace('#', '') || 'home';
-  navigateTo(initialHash);
+    const initialHash = window.location.hash.replace('#', '') || 'home';
+    navigateTo(initialHash);
+  }
 
-  // Initial calculation runs
+  // Initial currency and calculation run
   updateCurrencyDisplays();
 });

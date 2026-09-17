@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Fixed Deposit (FD) Calculator - Interest & Maturity Value</title>
+  
+  <meta name="description" content="Calculate fixed deposit (FD) maturity amount and interest earned with quarterly, monthly, and annual compounding frequencies. Accurate, instant, and private.">
+  <meta name="keywords" content="FD calculator, fixed deposit calculator, bank FD interest rate, term deposit calculator, maturity value calculation">
+  <meta name="author" content="Finance Calculator Hub">
+  <meta name="theme-color" content="#1e3a8a">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://financecalculatorhub.com/fd-calculator.html">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Fixed Deposit (FD) Calculator - Maturity & Interest">
+  <meta property="og:description" content="Calculate your term deposit return and interest income with flexible quarterly compounding.">
+  <meta property="og:url" content="https://financecalculatorhub.com/fd-calculator.html">
+  
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Fixed Deposit Calculator",
+        "url": "https://financecalculatorhub.com/fd-calculator.html",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript",
+        "description": "Calculate fixed deposit maturity values and compounding interest earnings."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://financecalculatorhub.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Fixed Deposit Calculator",
+            "item": "https://financecalculatorhub.com/fd-calculator.html"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How often is FD interest compounded by most commercial banks?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Most commercial banks compound fixed deposit interest on a quarterly basis (4 times per year), which yields slightly higher total returns than annual simple interest."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is interest earned on Fixed Deposits taxable?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, interest earned on fixed deposits is generally taxable in accordance with your personal income tax bracket. Banks may also deduct Tax Deducted at Source (TDS) if annual interest exceeds statutory thresholds."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do senior citizens receive special interest rates on FDs?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, many banking institutions offer preferential interest rate premiums (often 0.50% to 0.75% additional p.a.) for senior citizen deposits."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header" role="banner">
+    <div class="header-container">
+      <a href="index.html" class="brand" aria-label="Finance Calculator Hub Home">
+        <span class="brand-icon" aria-hidden="true">₹%</span>
+        <span>Finance Hub</span>
+      </a>
+
+      <div class="header-controls">
+        <div class="currency-selector-wrapper" title="Change calculation currency">
+          <label for="currency-select-fd" class="sr-only">Currency</label>
+          <select id="currency-select-fd" class="currency-select" aria-label="Select currency">
+            <option value="₹" selected>₹ INR</option>
+            <option value="$">$ USD</option>
+            <option value="€">€ EUR</option>
+            <option value="£">£ GBP</option>
+            <option value="¥">¥ JPY</option>
+          </select>
+        </div>
+
+        <button class="nav-toggle-btn" id="nav-toggle-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+          ☰
+        </button>
+
+        <nav id="nav-links" class="nav-links" role="navigation" aria-label="Main Navigation">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="sip-calculator.html" class="nav-link">SIP</a>
+          <a href="emi-calculator.html" class="nav-link">EMI</a>
+          <a href="fd-calculator.html" class="nav-link active">FD</a>
+          <a href="compound-interest-calculator.html" class="nav-link">Compound</a>
+          <a href="gst-calculator.html" class="nav-link">GST</a>
+          <a href="loan-calculator.html" class="nav-link">Loan</a>
+          <a href="about.html" class="nav-link">About</a>
+          <a href="contact.html" class="nav-link">Contact</a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Quick Switcher Bar -->
+    <div class="calc-quick-bar" aria-label="Quick Calculator Selection">
+      <div class="calc-quick-container">
+        <a href="sip-calculator.html" class="quick-pill">📈 SIP</a>
+        <a href="emi-calculator.html" class="quick-pill">💳 EMI</a>
+        <a href="fd-calculator.html" class="quick-pill active">🏦 Fixed Deposit</a>
+        <a href="compound-interest-calculator.html" class="quick-pill">⚡ Compound Interest</a>
+        <a href="gst-calculator.html" class="quick-pill">🧾 GST</a>
+        <a href="loan-calculator.html" class="quick-pill">🏡 Loan & Extra Pay</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content" id="main-content" role="main">
+
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+      <ol class="breadcrumb-list">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-separator" aria-hidden="true">/</li>
+        <li class="breadcrumb-item"><span class="breadcrumb-current">Fixed Deposit Calculator</span></li>
+      </ol>
+    </nav>
+
+    <!-- Title -->
+    <div class="calc-title-bar">
+      <h1 class="calc-view-title">Fixed Deposit (FD) Calculator</h1>
+      <p class="calc-view-subtitle">Calculate fixed deposit maturity returns and interest earned with bank-standard compounding.</p>
+    </div>
+
+    <!-- Calculator Layout -->
+    <div class="calc-main-layout">
+      <!-- Input Card -->
+      <div class="calc-form-card">
+        <div class="form-group">
+          <div class="form-label-row">
+            <label for="fd-principal" class="form-label">Total Deposit Amount</label>
+            <span class="form-sublabel">Lump-sum principal</span>
+          </div>
+          <div class="input-with-affix">
+            <span class="input-prefix currency-symbol">₹</span>
+            <input type="number" id="fd-principal" class="form-control has-prefix" value="500000" min="1000" max="50000000" step="10000">
+          </div>
+          <input type="range" id="fd-principal-range" class="range-slider" value="500000" min="10000" max="5000000" step="10000">
+        </div>
+
+        <div class="form-group">
+          <div class="form-label-row">
+            <label for="fd-rate" class="form-label">Annual Interest Rate (% p.a.)</label>
+            <span class="form-sublabel">Bank offered annual rate</span>
+          </div>
+          <div class="input-with-affix">
+            <input type="number" id="fd-rate" class="form-control has-suffix" value="7.1" min="0" max="25" step="0.1">
+            <span class="input-suffix">%</span>
+          </div>
+          <input type="range" id="fd-rate-range" class="range-slider" value="7.1" min="1" max="15" step="0.1">
+        </div>
+
+        <div class="form-group">
+          <div class="form-label-row">
+            <label for="fd-tenure" class="form-label">Tenure (Years)</label>
+            <span class="form-sublabel">Deposit maturity horizon</span>
+          </div>
+          <div class="input-with-affix">
+            <input type="number" id="fd-tenure" class="form-control has-suffix" value="5" min="1" max="25" step="1">
+            <span class="input-suffix">Yr</span>
+          </div>
+          <input type="range" id="fd-tenure-range" class="range-slider" value="5" min="1" max="20" step="1">
+        </div>
+
+        <div class="form-group">
+          <label for="fd-compounding" class="form-label">Compounding Frequency</label>
+          <select id="fd-compounding" class="form-control">
+            <option value="4" selected>Quarterly (Standard Bank Practice - 4/yr)</option>
+            <option value="12">Monthly (12/yr)</option>
+            <option value="2">Half-Yearly (2/yr)</option>
+            <option value="1">Annually (1/yr)</option>
+            <option value="0">Simple Interest (No compounding)</option>
+          </select>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-primary" onclick="calculateFD()">Calculate</button>
+          <button type="button" class="btn-secondary" onclick="resetFD()">Reset</button>
+        </div>
+      </div>
+
+      <!-- Results Card -->
+      <div class="calc-results-card">
+        <div class="results-hero-box">
+          <div class="results-hero-label">Total Maturity Amount</div>
+          <div id="fd-maturity-val" class="results-hero-value">₹ 7,10,341</div>
+        </div>
+
+        <div class="results-metrics-grid">
+          <div class="metric-item highlight-primary">
+            <span class="metric-label">Principal Amount</span>
+            <span id="fd-principal-val" class="metric-value">₹ 5,00,000</span>
+          </div>
+          <div class="metric-item highlight-success">
+            <span class="metric-label">Total Interest Earned</span>
+            <span id="fd-interest-val" class="metric-value">₹ 2,10,341</span>
+          </div>
+        </div>
+
+        <!-- Donut Chart -->
+        <div id="fd-donut-chart"></div>
+      </div>
+    </div>
+
+    <!-- AdSense Reserved Slot -->
+    <div class="ad-slot-placeholder" aria-label="Sponsored Space">
+      <span class="ad-badge">Sponsored Advertisement Area</span>
+      <span>Clean non-intrusive ad placement container</span>
+    </div>
+
+    <!-- Mathematical Explanation & Formula -->
+    <section class="info-section">
+      <h2 class="info-title">How the Fixed Deposit Formula Works</h2>
+      <div class="info-content">
+        <p>
+          Fixed deposits in commercial banking use the compound interest formula with quarterly or period compounding:
+        </p>
+        <div class="formula-card">
+          A = P × (1 + r / n)<sup>(n × t)</sup>
+        </div>
+        <ul class="formula-legend">
+          <li><strong>A:</strong> Total maturity amount at expiration</li>
+          <li><strong>P:</strong> Principal deposit amount</li>
+          <li><strong>r:</strong> Annual nominal interest rate (in decimal, e.g., 7% = 0.07)</li>
+          <li><strong>n:</strong> Number of compounding periods per year (Quarterly = 4)</li>
+          <li><strong>t:</strong> Total tenure duration in years</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Practical Worked Example -->
+    <section class="info-section">
+      <h2 class="info-title">Practical Example of Fixed Deposit Returns</h2>
+      <div class="info-content">
+        <p>
+          Assume an investor deposits <strong>₹5,00,000</strong> in a 5-year fixed deposit at an annual interest rate of <strong>7.1%</strong> compounded quarterly:
+        </p>
+        <ul style="padding-left: 1.5rem; margin-bottom: 1rem;">
+          <li>Principal (P): <strong>₹5,00,000</strong></li>
+          <li>Annual rate (r): <strong>0.071</strong></li>
+          <li>Compounding frequency (n): <strong>4 times per year</strong></li>
+          <li>Tenure in years (t): <strong>5 years</strong> (total 20 compounding quarters)</li>
+          <li>Total maturity value (A): <strong>₹7,10,341</strong></li>
+          <li>Total interest income: ₹7,10,341 - ₹5,00,000 = <strong>₹2,10,341</strong></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Disclaimer Notice -->
+    <aside class="disclaimer-card" role="note">
+      <strong>Important Financial Estimation Notice</strong>
+      Actual maturity values from banks may vary slightly due to daily leap-year day count conventions (365 vs 366 days), premature withdrawal penalties, and applicable Tax Deducted at Source (TDS). Check specific terms with your financial institution.
+    </aside>
+
+    <!-- FAQ Section -->
+    <section class="info-section">
+      <h2 class="info-title">Frequently Asked Questions (FAQ)</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question-btn" type="button" aria-expanded="false">
+            <span>How often is FD interest compounded by most commercial banks?</span>
+            <span class="faq-icon" aria-hidden="true">▼</span>
+          </button>
+          <div class="faq-answer">
+            Most commercial banks compound fixed deposit interest on a quarterly basis (4 times per year), which yields slightly higher total returns than annual simple interest.
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question-btn" type="button" aria-expanded="false">
+            <span>Is interest earned on Fixed Deposits taxable?</span>
+            <span class="faq-icon" aria-hidden="true">▼</span>
+          </button>
+          <div class="faq-answer">
+            Yes, interest earned on fixed deposits is generally taxable in accordance with your personal income tax bracket. Banks may also deduct Tax Deducted at Source (TDS) if annual interest exceeds statutory thresholds.
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question-btn" type="button" aria-expanded="false">
+            <span>Do senior citizens receive special interest rates on FDs?</span>
+            <span class="faq-icon" aria-hidden="true">▼</span>
+          </button>
+          <div class="faq-answer">
+            Yes, many banking institutions offer preferential interest rate premiums (often 0.50% to 0.75% additional p.a.) for senior citizen deposits.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Calculators -->
+    <section class="related-calcs-section">
+      <h2 class="related-calcs-title">Related Financial Calculators</h2>
+      <div class="related-calcs-grid">
+        <a href="compound-interest-calculator.html" class="related-calc-card">
+          <strong>⚡ Compound Interest Calculator</strong>
+          <span>Analyze regular monthly contributions alongside lump-sum balances.</span>
+        </a>
+        <a href="sip-calculator.html" class="related-calc-card">
+          <strong>📈 SIP Investment Calculator</strong>
+          <span>Compare fixed deposit safety against systematic equity mutual fund growth.</span>
+        </a>
+        <a href="emi-calculator.html" class="related-calc-card">
+          <strong>💳 Loan EMI Calculator</strong>
+          <span>Calculate repayment schedules for borrowing against fixed deposits.</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>Finance Calculator Hub</h3>
+        <p>
+          Free, private, client-side financial estimation calculators. Calculations run in your browser with standard mathematical equations.
+        </p>
+      </div>
+      <div class="footer-column">
+        <h4>Calculators</h4>
+        <ul class="footer-links">
+          <li><a href="sip-calculator.html">SIP Calculator</a></li>
+          <li><a href="emi-calculator.html">EMI Calculator</a></li>
+          <li><a href="fd-calculator.html">Fixed Deposit Calculator</a></li>
+          <li><a href="compound-interest-calculator.html">Compound Interest</a></li>
+          <li><a href="gst-calculator.html">GST Calculator</a></li>
+          <li><a href="loan-calculator.html">Loan Payoff Calculator</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Trust & Policies</h4>
+        <ul class="footer-links">
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
+          <li><a href="disclaimer.html">Financial Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>&copy; 2026 Finance Calculator Hub. All calculations are mathematical estimates for educational use.</div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

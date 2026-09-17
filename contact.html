@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Contact Us - Inquiries, Feedback & Suggestions | Finance Calculator Hub</title>
+  
+  <meta name="description" content="Contact the creators of Finance Calculator Hub. Send feedback, report calculation discrepancies, or propose new financial tools.">
+  <meta name="author" content="Finance Calculator Hub">
+  <meta name="theme-color" content="#1e3a8a">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://financecalculatorhub.com/contact.html">
+  
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header" role="banner">
+    <div class="header-container">
+      <a href="index.html" class="brand" aria-label="Finance Calculator Hub Home">
+        <span class="brand-icon" aria-hidden="true">₹%</span>
+        <span>Finance Hub</span>
+      </a>
+
+      <div class="header-controls">
+        <div class="currency-selector-wrapper" title="Change calculation currency">
+          <label for="currency-select-contact" class="sr-only">Currency</label>
+          <select id="currency-select-contact" class="currency-select" aria-label="Select currency">
+            <option value="₹" selected>₹ INR</option>
+            <option value="$">$ USD</option>
+            <option value="€">€ EUR</option>
+            <option value="£">£ GBP</option>
+            <option value="¥">¥ JPY</option>
+          </select>
+        </div>
+
+        <button class="nav-toggle-btn" id="nav-toggle-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+          ☰
+        </button>
+
+        <nav id="nav-links" class="nav-links" role="navigation" aria-label="Main Navigation">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="sip-calculator.html" class="nav-link">SIP</a>
+          <a href="emi-calculator.html" class="nav-link">EMI</a>
+          <a href="fd-calculator.html" class="nav-link">FD</a>
+          <a href="compound-interest-calculator.html" class="nav-link">Compound</a>
+          <a href="gst-calculator.html" class="nav-link">GST</a>
+          <a href="loan-calculator.html" class="nav-link">Loan</a>
+          <a href="about.html" class="nav-link">About</a>
+          <a href="contact.html" class="nav-link active">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content" role="main">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+      <ol class="breadcrumb-list">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-separator" aria-hidden="true">/</li>
+        <li class="breadcrumb-item"><span class="breadcrumb-current">Contact Us</span></li>
+      </ol>
+    </nav>
+
+    <article class="article-page">
+      <header class="article-header">
+        <h1 class="article-title">Contact Us</h1>
+        <div class="article-meta">Direct Communication & Feedback Channels</div>
+      </header>
+
+      <div class="article-body">
+        <p>
+          We welcome your feedback, bug reports, calculation verification requests, and suggestions for new financial calculator features.
+        </p>
+
+        <!-- Transparent Static Site Notice -->
+        <div style="background: var(--bg-card-subtle); border-left: 4px solid var(--primary); padding: 1.25rem; border-radius: var(--radius-sm); margin: 1.5rem 0;">
+          <h2 style="margin-top: 0; font-size: 1.1rem; color: var(--text-main);">How to Reach Us</h2>
+          <p style="margin-bottom: 0.75rem;">
+            Finance Calculator Hub is hosted statically on GitHub Pages with zero remote database servers. We never collect or harvest your contact data. For the fastest response, please contact us directly via email:
+          </p>
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; margin-top: 0.5rem;">
+            <a href="mailto:contact@financecalculatorhub.com" class="btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; padding: 0.6rem 1.25rem;">
+              ✉️ Email: contact@financecalculatorhub.com
+            </a>
+            <button type="button" class="copy-btn" onclick="copyToClipboard('contact@financecalculatorhub.com', this, 'Email Copied!')">
+              📋 Copy Email Address
+            </button>
+          </div>
+        </div>
+
+        <h2>Compose an Email Draft</h2>
+        <p>
+          You can use the helper form below to draft your inquiry. When you click "Open in Email App", your device's email client will open with your pre-filled subject and message text ready to send.
+        </p>
+
+        <form id="contact-form" class="contact-form-grid" novalidate>
+          <div class="form-group">
+            <label for="contact-name" class="form-label">Your Name</label>
+            <input type="text" id="contact-name" class="form-control" placeholder="e.g., Alex Parker" required>
+          </div>
+
+          <div class="form-group">
+            <label for="contact-subject" class="form-label">Subject</label>
+            <select id="contact-subject" class="form-control">
+              <option value="Formula Feedback or Question">Formula Feedback or Question</option>
+              <option value="Calculation Discrepancy Report">Calculation Discrepancy Report</option>
+              <option value="New Calculator Suggestion">New Calculator Suggestion</option>
+              <option value="General Inquiry">General Inquiry</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="contact-message" class="form-label">Message Details</label>
+            <textarea id="contact-message" class="form-control" rows="5" placeholder="Describe the calculation scenario, values tested, or feedback in detail..." required></textarea>
+          </div>
+
+          <div id="contact-alert" class="form-alert" style="display: none;"></div>
+
+          <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center;">
+            <button type="submit" class="btn-primary">
+              📧 Open in Email App
+            </button>
+            <button type="button" class="btn-secondary" onclick="const msg = document.getElementById('contact-message')?.value; if (msg) { copyToClipboard(msg, this, 'Message Copied!'); } else { alert('Please enter a message first.'); }">
+              📋 Copy Message Text
+            </button>
+          </div>
+        </form>
+
+        <h2 style="margin-top: 2rem;">Frequently Asked Inquiries</h2>
+        <ul>
+          <li><strong>Do you offer personalized investment advice?</strong> No. Finance Calculator Hub is strictly an educational calculation tool. We cannot provide individualized portfolio advice or recommend specific stocks, funds, or loans.</li>
+          <li><strong>Found a calculation discrepancy?</strong> Please email us with the exact numbers entered, expected result, and the formula used by your bank or institution so we can examine the case.</li>
+        </ul>
+      </div>
+    </article>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>Finance Calculator Hub</h3>
+        <p>
+          Free, private, client-side financial estimation calculators. Calculations run in your browser with standard mathematical equations.
+        </p>
+      </div>
+      <div class="footer-column">
+        <h4>Calculators</h4>
+        <ul class="footer-links">
+          <li><a href="sip-calculator.html">SIP Calculator</a></li>
+          <li><a href="emi-calculator.html">EMI Calculator</a></li>
+          <li><a href="fd-calculator.html">Fixed Deposit Calculator</a></li>
+          <li><a href="compound-interest-calculator.html">Compound Interest</a></li>
+          <li><a href="gst-calculator.html">GST Calculator</a></li>
+          <li><a href="loan-calculator.html">Loan Payoff Calculator</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Trust & Policies</h4>
+        <ul class="footer-links">
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
+          <li><a href="disclaimer.html">Financial Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>&copy; 2026 Finance Calculator Hub. All calculations are mathematical estimates for educational use.</div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

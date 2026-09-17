@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>SIP Calculator - Systematic Investment Plan Returns & Growth Schedule</title>
+  
+  <meta name="description" content="Calculate estimated returns and future wealth from systematic mutual fund investments (SIP). Includes year-by-year schedule, compound growth breakdown, and interactive visual chart.">
+  <meta name="keywords" content="SIP calculator, systematic investment plan, mutual fund return calculator, SIP return formula, investment growth calculator">
+  <meta name="author" content="Finance Calculator Hub">
+  <meta name="theme-color" content="#1e3a8a">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://financecalculatorhub.com/sip-calculator.html">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="SIP Calculator - Systematic Investment Plan Returns">
+  <meta property="og:description" content="Estimate maturity value, total invested amount, and compounding wealth gains with our free client-side SIP calculator.">
+  <meta property="og:url" content="https://financecalculatorhub.com/sip-calculator.html">
+  
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "SIP Calculator",
+        "url": "https://financecalculatorhub.com/sip-calculator.html",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript",
+        "description": "Calculate future returns from monthly Systematic Investment Plans (SIP) in mutual funds."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://financecalculatorhub.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "SIP Calculator",
+            "item": "https://financecalculatorhub.com/sip-calculator.html"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Are SIP mutual fund returns guaranteed?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Mutual fund investments are subject to market risks. Historical returns and assumed rates (such as 12%) are solely estimations and do not reflect guaranteed yields."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is Rupee-Cost Averaging in a SIP?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Rupee-cost averaging automatically acquires more units when market prices are low and fewer units when prices are high, smoothing out the average purchase cost over time."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I increase my monthly SIP amount over time?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, many fund houses provide Step-Up or Top-Up SIP options allowing investors to increase monthly contributions by a set percentage or amount annually."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header" role="banner">
+    <div class="header-container">
+      <a href="index.html" class="brand" aria-label="Finance Calculator Hub Home">
+        <span class="brand-icon" aria-hidden="true">₹%</span>
+        <span>Finance Hub</span>
+      </a>
+
+      <div class="header-controls">
+        <div class="currency-selector-wrapper" title="Change calculation currency">
+          <label for="currency-select-sip" class="sr-only">Currency</label>
+          <select id="currency-select-sip" class="currency-select" aria-label="Select currency">
+            <option value="₹" selected>₹ INR</option>
+            <option value="$">$ USD</option>
+            <option value="€">€ EUR</option>
+            <option value="£">£ GBP</option>
+            <option value="¥">¥ JPY</option>
+          </select>
+        </div>
+
+        <button class="nav-toggle-btn" id="nav-toggle-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+          ☰
+        </button>
+
+        <nav id="nav-links" class="nav-links" role="navigation" aria-label="Main Navigation">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="sip-calculator.html" class="nav-link active">SIP</a>
+          <a href="emi-calculator.html" class="nav-link">EMI</a>
+          <a href="fd-calculator.html" class="nav-link">FD</a>
+          <a href="compound-interest-calculator.html" class="nav-link">Compound</a>
+          <a href="gst-calculator.html" class="nav-link">GST</a>
+          <a href="loan-calculator.html" class="nav-link">Loan</a>
+          <a href="about.html" class="nav-link">About</a>
+          <a href="contact.html" class="nav-link">Contact</a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Quick Switcher Bar -->
+    <div class="calc-quick-bar" aria-label="Quick Calculator Selection">
+      <div class="calc-quick-container">
+        <a href="sip-calculator.html" class="quick-pill active">📈 SIP</a>
+        <a href="emi-calculator.html" class="quick-pill">💳 EMI</a>
+        <a href="fd-calculator.html" class="quick-pill">🏦 Fixed Deposit</a>
+        <a href="compound-interest-calculator.html" class="quick-pill">⚡ Compound Interest</a>
+        <a href="gst-calculator.html" class="quick-pill">🧾 GST</a>
+        <a href="loan-calculator.html" class="quick-pill">🏡 Loan & Extra Pay</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content" id="main-content" role="main">
+
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+      <ol class="breadcrumb-list">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-separator" aria-hidden="true">/</li>
+        <li class="breadcrumb-item"><span class="breadcrumb-current">SIP Calculator</span></li>
+      </ol>
+    </nav>
+
+    <!-- Page Title & Subtitle -->
+    <div class="calc-title-bar">
+      <h1 class="calc-view-title">SIP Calculator</h1>
+      <p class="calc-view-subtitle">Estimate future wealth accumulation and compounding returns from monthly systematic mutual fund investments.</p>
+    </div>
+
+    <!-- Interactive Calculator Layout -->
+    <div class="calc-main-layout">
+      
+      <!-- Input Card -->
+      <div class="calc-form-card">
+        <div class="form-group">
+          <div class="form-label-row">
+            <label for="sip-amount" class="form-label">Monthly Investment</label>
+            <span class="form-sublabel">Amount deposited every month</span>
+          </div>
+          <div class="input-with-affix">
+            <span class="input-prefix currency-symbol">₹</span>
+            <input type="number" id="sip-amount" class="form-control has-prefix" value="10000" min="100" max="10000000" step="500">
+          </div>
+          <input type="range" id="sip-amount-range" class="range-slider" value="10000" min="500" max="100000" step="500">
+          <div class="preset-chips">
+            <button type="button" class="preset-chip" onclick="setInputValue('sip-amount', 2500); setInputValue('sip-amount-range', 2500); calculateSIP();">+ 2.5K</button>
+            <button type="button" class="preset-chip" onclick="setInputValue('sip-amount', 5000); setInputValue('sip-amount-range', 5000); calculateSIP();">+ 5K</button>
+            <button type="button" class="preset-chip" onclick="setInputValue('sip-amount', 10000); setInputValue('sip-amount-range', 10000); calculateSIP();">+ 10K</button>
+            <button type="button" class="preset-chip" onclick="setInputValue('sip-amount', 25000); setInputValue('sip-amount-range', 25000); calculateSIP();">+ 25K</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label-row">
+            <label for="sip-rate" class="form-label">Expected Annual Return Rate (% p.a.)</label>
+            <span class="form-sublabel">Assumed annualized CAGR</span>
+          </div>
+          <div class="input-with-affix">
+            <input type="number" id="sip-rate" class="form-control has-suffix" value="12" min="0" max="50" step="0.5">
+            <span class="input-suffix">%</span>
+          </div>
+          <input type="range" id="sip-rate-range" class="range-slider" value="12" min="1" max="30" step="0.5">
+          <div class="preset-chips">
+            <button type="button" class="preset-chip" onclick="setInputValue('sip-rate', 8); setInputValue('sip-rate-range', 8); calculateSIP();">8% (Conservative)</button>
+            <button type="button" class="preset-chip" onclick="setInputValue('sip-rate', 12); setInputValue('sip-rate-range', 12); calculateSIP();">12% (Balanced)</button>
+            <button type="button" class="preset-chip" onclick="setInputValue('sip-rate', 15); setInputValue('sip-rate-range', 15); calculateSIP();">15% (Aggressive)</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label-row">
+            <label for="sip-years" class="form-label">Investment Duration (Years)</label>
+            <span class="form-sublabel">Total investment horizon</span>
+          </div>
+          <div class="input-with-affix">
+            <input type="number" id="sip-years" class="form-control has-suffix" value="10" min="1" max="40" step="1">
+            <span class="input-suffix">Yr</span>
+          </div>
+          <input type="range" id="sip-years-range" class="range-slider" value="10" min="1" max="40" step="1">
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-primary" onclick="calculateSIP()">Calculate</button>
+          <button type="button" class="btn-secondary" onclick="resetSIP()">Reset</button>
+        </div>
+      </div>
+
+      <!-- Results Card -->
+      <div class="calc-results-card">
+        <div class="results-hero-box">
+          <div class="results-hero-label">Estimated Future Maturity Value</div>
+          <div id="sip-total-value" class="results-hero-value">₹ 23,23,391</div>
+        </div>
+
+        <div class="results-metrics-grid">
+          <div class="metric-item highlight-primary">
+            <span class="metric-label">Invested Amount</span>
+            <span id="sip-invested-amount" class="metric-value">₹ 12,00,000</span>
+          </div>
+          <div class="metric-item highlight-success">
+            <span class="metric-label">Estimated Wealth Gain</span>
+            <span id="sip-estimated-returns" class="metric-value">₹ 11,23,391</span>
+          </div>
+        </div>
+
+        <!-- SVG Donut Chart -->
+        <div id="sip-donut-chart"></div>
+
+        <!-- Annual Growth Milestones -->
+        <div class="schedule-container">
+          <div class="schedule-header">
+            <span>Annual Growth Schedule</span>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">Yearly Milestones</span>
+          </div>
+          <div class="table-responsive">
+            <table class="schedule-table">
+              <thead>
+                <tr>
+                  <th>Year</th>
+                  <th>Invested</th>
+                  <th>Interest Earned</th>
+                  <th>Total Balance</th>
+                </tr>
+              </thead>
+              <tbody id="sip-schedule-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AdSense Reserved Slot -->
+    <div class="ad-slot-placeholder" aria-label="Sponsored Space">
+      <span class="ad-badge">Sponsored Advertisement Area</span>
+      <span>Clean non-intrusive ad placement container</span>
+    </div>
+
+    <!-- Mathematical Explanation & Formula -->
+    <section class="info-section">
+      <h2 class="info-title">How the SIP Formula Works</h2>
+      <div class="info-content">
+        <p>
+          A Systematic Investment Plan (SIP) works on the principle of compound interest applied to recurring regular installments (an annuity due). Because each installment has a different compounding duration, the future value formula sums the compounding growth of every individual monthly deposit:
+        </p>
+        <div class="formula-card">
+          FV = P × [((1 + i)<sup>n</sup> - 1) / i] × (1 + i)
+        </div>
+        <ul class="formula-legend">
+          <li><strong>FV:</strong> Future value (projected maturity value)</li>
+          <li><strong>P:</strong> Amount invested each month</li>
+          <li><strong>i:</strong> Periodic monthly rate of return (Annual Rate / 12 / 100)</li>
+          <li><strong>n:</strong> Total number of monthly installments (Years × 12)</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Practical Worked Example -->
+    <section class="info-section">
+      <h2 class="info-title">Practical Example of SIP Growth</h2>
+      <div class="info-content">
+        <p>
+          Suppose you invest <strong>₹10,000 every month</strong> for <strong>10 years</strong> with an expected annual return of <strong>12%</strong>:
+        </p>
+        <ul style="padding-left: 1.5rem; margin-bottom: 1rem;">
+          <li>Total installments: 10 years × 12 months = <strong>120 deposits</strong></li>
+          <li>Total capital invested: 120 × ₹10,000 = <strong>₹12,00,000</strong></li>
+          <li>Monthly interest rate (i): 12% / 12 = <strong>1% (0.01 per month)</strong></li>
+          <li>Projected maturity balance (FV): approximately <strong>₹23,23,391</strong></li>
+          <li>Estimated compounding returns: ₹23,23,391 - ₹12,00,000 = <strong>₹11,23,391</strong></li>
+        </ul>
+        <p>
+          Notice that in 10 years, compounding returns represent nearly half of the entire portfolio value.
+        </p>
+      </div>
+    </section>
+
+    <!-- Disclaimer Notice -->
+    <aside class="disclaimer-card" role="note">
+      <strong>Important Financial Estimation Notice</strong>
+      All calculation results produced by this SIP calculator are estimates intended for educational and illustrative purposes. Mutual fund investments are subject to market volatility. Actual returns may vary depending on expense ratios, market fluctuations, exit loads, and taxation. Verify all investment plans with a certified financial planner.
+    </aside>
+
+    <!-- Visible FAQ Section -->
+    <section class="info-section">
+      <h2 class="info-title">Frequently Asked Questions (FAQ)</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question-btn" type="button" aria-expanded="false">
+            <span>Are SIP mutual fund returns guaranteed?</span>
+            <span class="faq-icon" aria-hidden="true">▼</span>
+          </button>
+          <div class="faq-answer">
+            No. Mutual fund investments are subject to market risks. Historical returns and assumed rates (such as 12%) are solely estimations and do not reflect guaranteed yields.
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question-btn" type="button" aria-expanded="false">
+            <span>What is Rupee-Cost Averaging in a SIP?</span>
+            <span class="faq-icon" aria-hidden="true">▼</span>
+          </button>
+          <div class="faq-answer">
+            Rupee-cost averaging automatically acquires more units when market prices are low and fewer units when prices are high, smoothing out the average purchase cost over time.
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question-btn" type="button" aria-expanded="false">
+            <span>Can I increase my monthly SIP amount over time?</span>
+            <span class="faq-icon" aria-hidden="true">▼</span>
+          </button>
+          <div class="faq-answer">
+            Yes, many fund houses provide Step-Up or Top-Up SIP options allowing investors to increase monthly contributions by a set percentage or amount annually.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Internal Linking / Related Calculators -->
+    <section class="related-calcs-section">
+      <h2 class="related-calcs-title">Related Financial Calculators</h2>
+      <div class="related-calcs-grid">
+        <a href="compound-interest-calculator.html" class="related-calc-card">
+          <strong>⚡ Compound Interest Calculator</strong>
+          <span>Analyze exponential capital growth with flexible compounding frequencies.</span>
+        </a>
+        <a href="fd-calculator.html" class="related-calc-card">
+          <strong>🏦 Fixed Deposit (FD) Calculator</strong>
+          <span>Compare market-linked SIP returns against guaranteed bank deposit yields.</span>
+        </a>
+        <a href="emi-calculator.html" class="related-calc-card">
+          <strong>💳 Loan EMI Calculator</strong>
+          <span>Balance investment growth against monthly debt servicing obligations.</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>Finance Calculator Hub</h3>
+        <p>
+          Free, private, client-side financial estimation calculators. Calculations run in your browser with standard mathematical equations.
+        </p>
+      </div>
+      <div class="footer-column">
+        <h4>Calculators</h4>
+        <ul class="footer-links">
+          <li><a href="sip-calculator.html">SIP Calculator</a></li>
+          <li><a href="emi-calculator.html">EMI Calculator</a></li>
+          <li><a href="fd-calculator.html">Fixed Deposit Calculator</a></li>
+          <li><a href="compound-interest-calculator.html">Compound Interest</a></li>
+          <li><a href="gst-calculator.html">GST Calculator</a></li>
+          <li><a href="loan-calculator.html">Loan Payoff Calculator</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Trust & Policies</h4>
+        <ul class="footer-links">
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
+          <li><a href="disclaimer.html">Financial Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>&copy; 2026 Finance Calculator Hub. All calculations are mathematical estimates for educational use.</div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

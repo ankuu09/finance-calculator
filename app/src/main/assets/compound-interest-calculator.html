@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Compound Interest Calculator - Multi-Year Wealth Growth & Additions</title>
+  
+  <meta name="description" content="Calculate compound interest with recurring monthly contributions and flexible compounding frequencies. View annual portfolio trajectory and interest growth.">
+  <meta name="keywords" content="compound interest calculator, investment compounding, interest on interest, recurring deposit compounding, wealth growth calculator">
+  <meta name="author" content="Finance Calculator Hub">
+  <meta name="theme-color" content="#1e3a8a">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://financecalculatorhub.com/compound-interest-calculator.html">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Compound Interest Calculator - Multi-Year Wealth Growth">
+  <meta property="og:description" content="Simulate how small recurring contributions and compound growth expand your wealth over time.">
+  <meta property="og:url" content="https://financecalculatorhub.com/compound-interest-calculator.html">
+  
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Compound Interest Calculator",
+        "url": "https://financecalculatorhub.com/compound-interest-calculator.html",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript",
+        "description": "Calculate multi-year compound interest growth with optional monthly deposits."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://financecalculatorhub.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Compound Interest Calculator",
+            "item": "https://financecalculatorhub.com/compound-interest-calculator.html"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the difference between Simple Interest and Compound Interest?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Simple interest calculates returns purely on the original principal. Compound interest calculates returns on both initial principal and previously accumulated interest ('interest on interest')."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the Rule of 72 in compound investing?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The Rule of 72 is a mental shortcut to estimate the years required to double your money. Divide 72 by your annual interest rate (e.g., at 12% p.a., 72 / 12 = 6 years to double)."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does compounding frequency make a significant difference?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Higher compounding frequency (such as monthly or daily versus annual) increases effective annual yield, although the difference is most notable over longer multi-decade horizons."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header" role="banner">
+    <div class="header-container">
+      <a href="index.html" class="brand" aria-label="Finance Calculator Hub Home">
+        <span class="brand-icon" aria-hidden="true">₹%</span>
+        <span>Finance Hub</span>
+      </a>
+
+      <div class="header-controls">
+        <div class="currency-selector-wrapper" title="Change calculation currency">
+          <label for="currency-select-ci" class="sr-only">Currency</label>
+          <select id="currency-select-ci" class="currency-select" aria-label="Select currency">
+            <option value="₹" selected>₹ INR</option>
+            <option value="$">$ USD</option>
+            <option value="€">€ EUR</option>
+            <option value="£">£ GBP</option>
+            <option value="¥">¥ JPY</option>
+          </select>
+        </div>
+
+        <button class="nav-toggle-btn" id="nav-toggle-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+          ☰
+        </button>
+
+        <nav id="nav-links" class="nav-links" role="navigation" aria-label="Main Navigation">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="sip-calculator.html" class="nav-link">SIP</a>
+          <a href="emi-calculator.html" class="nav-link">EMI</a>
+          <a href="fd-calculator.html" class="nav-link">FD</a>
+          <a href="compound-interest-calculator.html" class="nav-link active">Compound</a>
+          <a href="gst-calculator.html" class="nav-link">GST</a>
+          <a href="loan-calculator.html" class="nav-link">Loan</a>
+          <a href="about.html" class="nav-link">About</a>
+          <a href="contact.html" class="nav-link">Contact</a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Quick Switcher Bar -->
+    <div class="calc-quick-bar" aria-label="Quick Calculator Selection">
+      <div class="calc-quick-container">
+        <a href="sip-calculator.html" class="quick-pill">📈 SIP</a>
+        <a href="emi-calculator.html" class="quick-pill">💳 EMI</a>
+        <a href="fd-calculator.html" class="quick-pill">🏦 Fixed Deposit</a>
+        <a href="compound-interest-calculator.html" class="quick-pill active">⚡ Compound Interest</a>
+        <a href="gst-calculator.html" class="quick-pill">🧾 GST</a>
+        <a href="loan-calculator.html" class="quick-pill">🏡 Loan & Extra Pay</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content" id="main-content" role="main">
+
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+      <ol class="breadcrumb-list">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-separator" aria-hidden="true">/</li>
+        <li class="breadcrumb-item"><span class="breadcrumb-current">Compound Interest Calculator</span></li>
+      </ol>
+    </nav>
+
+    <!-- Title -->
+    <div class="calc-title-bar">
+      <h1 class="calc-view-title">Compound Interest Calculator</h1>
+      <p class="calc-view-subtitle">Explore exponential wealth building with initial lump-sum capital plus optional monthly contributions.</p>
+    </div>
+
+    <!-- Calculator Layout -->
+    <div class="calc-main-layout">
+      <!-- Input Card -->
+      <div class="calc-form-card">
+        <div class="form-group">
+          <div class="form-label-row">
+            <label for="ci-principal" class="form-label">Initial Principal</label>
+            <span class="form-sublabel">Starting investment balance</span>
+          </div>
+          <div class="input-with-affix">
+            <span class="input-prefix currency-symbol">₹</span>
+            <input type="number" id="ci-principal" class="form-control has-prefix" value="200000" min="0" max="100000000" step="10000">
+          </div>
+          <input type="range" id="ci-principal-range" class="range-slider" value="200000" min="0" max="5000000" step="10000">
+        </div>
+
+        <div class="form-group">
+          <div class="form-label-row">
+            <label for="ci-monthly" class="form-label">Regular Monthly Deposit</label>
+            <span class="form-sublabel">Optional ongoing addition</span>
+          </div>
+          <div class="input-with-affix">
+            <span class="input-prefix currency-symbol">₹</span>
+            <input type="number" id="ci-monthly" class="form-control has-prefix" value="5000" min="0" max="1000000" step="500">
+          </div>
+          <input type="range" id="ci-monthly-range" class="range-slider" value="5000" min="0" max="50000" step="500">
+        </div>
+
+        <div class="form-group">
+          <div class="form-label-row">
+            <label for="ci-rate" class="form-label">Annual Interest Rate (% p.a.)</label>
+            <span class="form-sublabel">Expected annualized return</span>
+          </div>
+          <div class="input-with-affix">
+            <input type="number" id="ci-rate" class="form-control has-suffix" value="10" min="0" max="40" step="0.5">
+            <span class="input-suffix">%</span>
+          </div>
+          <input type="range" id="ci-rate-range" class="range-slider" value="10" min="1" max="30" step="0.5">
+        </div>
+
+        <div class="form-group">
+          <div class="form-label-row">
+            <label for="ci-tenure" class="form-label">Time Horizon (Years)</label>
+            <span class="form-sublabel">Duration to compound</span>
+          </div>
+          <div class="input-with-affix">
+            <input type="number" id="ci-tenure" class="form-control has-suffix" value="10" min="1" max="50" step="1">
+            <span class="input-suffix">Yr</span>
+          </div>
+          <input type="range" id="ci-tenure-range" class="range-slider" value="10" min="1" max="40" step="1">
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-primary" onclick="calculateCompound()">Calculate</button>
+          <button type="button" class="btn-secondary" onclick="resetCompound()">Reset</button>
+        </div>
+      </div>
+
+      <!-- Results Card -->
+      <div class="calc-results-card">
+        <div class="results-hero-box">
+          <div class="results-hero-label">Projected Final Balance</div>
+          <div id="ci-total-balance" class="results-hero-value">₹ 15,30,591</div>
+        </div>
+
+        <div class="results-metrics-grid">
+          <div class="metric-item highlight-primary">
+            <span class="metric-label">Initial Principal</span>
+            <span id="ci-principal-val" class="metric-value">₹ 2,00,000</span>
+          </div>
+          <div class="metric-item highlight-primary">
+            <span class="metric-label">Total Monthly Additions</span>
+            <span id="ci-additions-val" class="metric-value">₹ 6,00,000</span>
+          </div>
+          <div class="metric-item highlight-success" style="grid-column: span 2;">
+            <span class="metric-label">Total Compound Interest</span>
+            <span id="ci-interest-val" class="metric-value">₹ 7,30,591</span>
+          </div>
+        </div>
+
+        <!-- Donut Chart -->
+        <div id="ci-donut-chart"></div>
+
+        <!-- Trajectory Table -->
+        <div class="schedule-container">
+          <div class="schedule-header">
+            <span>Portfolio Trajectory</span>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">Yearly Milestones</span>
+          </div>
+          <div class="table-responsive">
+            <table class="schedule-table">
+              <thead>
+                <tr>
+                  <th>Year</th>
+                  <th>Total Invested</th>
+                  <th>Interest Earned</th>
+                  <th>Balance</th>
+                </tr>
+              </thead>
+              <tbody id="ci-schedule-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AdSense Reserved Slot -->
+    <div class="ad-slot-placeholder" aria-label="Sponsored Space">
+      <span class="ad-badge">Sponsored Advertisement Area</span>
+      <span>Clean non-intrusive ad placement container</span>
+    </div>
+
+    <!-- Explanation & Formula -->
+    <section class="info-section">
+      <h2 class="info-title">The Mathematics of Compound Interest</h2>
+      <div class="info-content">
+        <p>
+          Compound interest occurs when interest earned over a period is added to the principal balance, and subsequent interest calculations incorporate this newly added interest. When regular monthly additions are included, the calculation combines lump-sum compounding and future annuity accumulation:
+        </p>
+        <div class="formula-card">
+          A = [P × (1 + r / n)<sup>(n × t)</sup>] + [PMT × (((1 + r / n)<sup>(n × t)</sup> - 1) / (r / n))]
+        </div>
+        <ul class="formula-legend">
+          <li><strong>A:</strong> Total accumulated future balance</li>
+          <li><strong>P:</strong> Initial principal deposit</li>
+          <li><strong>PMT:</strong> Regular monthly addition</li>
+          <li><strong>r:</strong> Annual interest rate (in decimal format)</li>
+          <li><strong>n:</strong> Compounding frequency per year (12 for monthly)</li>
+          <li><strong>t:</strong> Number of investment years</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Practical Worked Example -->
+    <section class="info-section">
+      <h2 class="info-title">Practical Example of Compound Wealth Accumulation</h2>
+      <div class="info-content">
+        <p>
+          Assume an investor starts with <strong>₹2,00,000 initial capital</strong> and contributes <strong>₹5,000 each month</strong> at an annualized rate of <strong>10%</strong> for <strong>10 years</strong>:
+        </p>
+        <ul style="padding-left: 1.5rem; margin-bottom: 1rem;">
+          <li>Initial capital: <strong>₹2,00,000</strong></li>
+          <li>Total regular deposits: 10 years × 12 months × ₹5,000 = <strong>₹6,00,000</strong></li>
+          <li>Total self-funded capital: ₹2,00,000 + ₹6,00,000 = <strong>₹8,00,000</strong></li>
+          <li>Accumulated compound interest: <strong>₹7,30,591</strong></li>
+          <li>Total ending portfolio balance: <strong>₹15,30,591</strong></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Disclaimer Notice -->
+    <aside class="disclaimer-card" role="note">
+      <strong>Important Financial Estimation Notice</strong>
+      This calculation models continuous mathematical compounding at a constant rate. In real-world market instruments (equities, index funds, bond markets), rates of return fluctuate annually and do not remain fixed. Always conduct thorough research before committing capital.
+    </aside>
+
+    <!-- Visible FAQ Section -->
+    <section class="info-section">
+      <h2 class="info-title">Frequently Asked Questions (FAQ)</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question-btn" type="button" aria-expanded="false">
+            <span>What is the difference between Simple Interest and Compound Interest?</span>
+            <span class="faq-icon" aria-hidden="true">▼</span>
+          </button>
+          <div class="faq-answer">
+            Simple interest calculates returns purely on the original principal. Compound interest calculates returns on both initial principal and previously accumulated interest ("interest on interest").
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question-btn" type="button" aria-expanded="false">
+            <span>What is the Rule of 72 in compound investing?</span>
+            <span class="faq-icon" aria-hidden="true">▼</span>
+          </button>
+          <div class="faq-answer">
+            The Rule of 72 is a mental shortcut to estimate the years required to double your money. Divide 72 by your annual interest rate (e.g., at 12% p.a., 72 / 12 = 6 years to double).
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question-btn" type="button" aria-expanded="false">
+            <span>Does compounding frequency make a significant difference?</span>
+            <span class="faq-icon" aria-hidden="true">▼</span>
+          </button>
+          <div class="faq-answer">
+            Higher compounding frequency (such as monthly or daily versus annual) increases effective annual yield, although the difference is most notable over longer multi-decade horizons.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Calculators -->
+    <section class="related-calcs-section">
+      <h2 class="related-calcs-title">Related Financial Calculators</h2>
+      <div class="related-calcs-grid">
+        <a href="sip-calculator.html" class="related-calc-card">
+          <strong>📈 SIP Mutual Fund Calculator</strong>
+          <span>Examine recurring mutual fund installment growth with equity returns.</span>
+        </a>
+        <a href="fd-calculator.html" class="related-calc-card">
+          <strong>🏦 Fixed Deposit (FD) Calculator</strong>
+          <span>Calculate guaranteed bank term deposit returns with quarterly compounding.</span>
+        </a>
+        <a href="loan-calculator.html" class="related-calc-card">
+          <strong>🏡 Loan & Extra Payment Calculator</strong>
+          <span>Analyze the reverse impact of compound interest on outstanding loans.</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>Finance Calculator Hub</h3>
+        <p>
+          Free, private, client-side financial estimation calculators. Calculations run in your browser with standard mathematical equations.
+        </p>
+      </div>
+      <div class="footer-column">
+        <h4>Calculators</h4>
+        <ul class="footer-links">
+          <li><a href="sip-calculator.html">SIP Calculator</a></li>
+          <li><a href="emi-calculator.html">EMI Calculator</a></li>
+          <li><a href="fd-calculator.html">Fixed Deposit Calculator</a></li>
+          <li><a href="compound-interest-calculator.html">Compound Interest</a></li>
+          <li><a href="gst-calculator.html">GST Calculator</a></li>
+          <li><a href="loan-calculator.html">Loan Payoff Calculator</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Trust & Policies</h4>
+        <ul class="footer-links">
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
+          <li><a href="disclaimer.html">Financial Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>&copy; 2026 Finance Calculator Hub. All calculations are mathematical estimates for educational use.</div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

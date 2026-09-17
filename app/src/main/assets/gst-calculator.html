@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>GST Calculator - Add & Remove Goods and Services Tax (Inclusive & Exclusive)</title>
+  
+  <meta name="description" content="Calculate Goods and Services Tax (GST) easily. Add GST (Exclusive) or remove GST (Inclusive) across 5%, 12%, 18%, and 28% tax slabs with CGST and SGST splits.">
+  <meta name="keywords" content="GST calculator, add GST, remove GST, GST slab calculator, CGST SGST calculator, tax inclusive price">
+  <meta name="author" content="Finance Calculator Hub">
+  <meta name="theme-color" content="#1e3a8a">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://financecalculatorhub.com/gst-calculator.html">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="GST Calculator - Add & Remove Tax Slabs">
+  <meta property="og:description" content="Compute net price, tax amounts, and invoice totals instantly with CGST and SGST breakdowns.">
+  <meta property="og:url" content="https://financecalculatorhub.com/gst-calculator.html">
+  
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "GST Calculator",
+        "url": "https://financecalculatorhub.com/gst-calculator.html",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript",
+        "description": "Calculate Goods and Services Tax additions and reverse deductions with CGST and SGST splits."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://financecalculatorhub.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "GST Calculator",
+            "item": "https://financecalculatorhub.com/gst-calculator.html"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the difference between GST Inclusive and GST Exclusive?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "GST Exclusive means the price displayed is before tax; GST must be added on top. GST Inclusive means the displayed price already incorporates the applicable GST tax."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What are CGST, SGST, and IGST?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "For intra-state transactions (within the same state), GST is split equally into Central GST (CGST) and State GST (SGST). For inter-state transactions (between two states), Integrated GST (IGST) is charged in full."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How is the base price determined from an inclusive price?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The formula to remove GST is: Base Price = Total Price / (1 + (GST Rate / 100)). For an 18% slab, divide the gross price by 1.18."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header" role="banner">
+    <div class="header-container">
+      <a href="index.html" class="brand" aria-label="Finance Calculator Hub Home">
+        <span class="brand-icon" aria-hidden="true">₹%</span>
+        <span>Finance Hub</span>
+      </a>
+
+      <div class="header-controls">
+        <div class="currency-selector-wrapper" title="Change calculation currency">
+          <label for="currency-select-gst" class="sr-only">Currency</label>
+          <select id="currency-select-gst" class="currency-select" aria-label="Select currency">
+            <option value="₹" selected>₹ INR</option>
+            <option value="$">$ USD</option>
+            <option value="€">€ EUR</option>
+            <option value="£">£ GBP</option>
+            <option value="¥">¥ JPY</option>
+          </select>
+        </div>
+
+        <button class="nav-toggle-btn" id="nav-toggle-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+          ☰
+        </button>
+
+        <nav id="nav-links" class="nav-links" role="navigation" aria-label="Main Navigation">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="sip-calculator.html" class="nav-link">SIP</a>
+          <a href="emi-calculator.html" class="nav-link">EMI</a>
+          <a href="fd-calculator.html" class="nav-link">FD</a>
+          <a href="compound-interest-calculator.html" class="nav-link">Compound</a>
+          <a href="gst-calculator.html" class="nav-link active">GST</a>
+          <a href="loan-calculator.html" class="nav-link">Loan</a>
+          <a href="about.html" class="nav-link">About</a>
+          <a href="contact.html" class="nav-link">Contact</a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Quick Switcher Bar -->
+    <div class="calc-quick-bar" aria-label="Quick Calculator Selection">
+      <div class="calc-quick-container">
+        <a href="sip-calculator.html" class="quick-pill">📈 SIP</a>
+        <a href="emi-calculator.html" class="quick-pill">💳 EMI</a>
+        <a href="fd-calculator.html" class="quick-pill">🏦 Fixed Deposit</a>
+        <a href="compound-interest-calculator.html" class="quick-pill">⚡ Compound Interest</a>
+        <a href="gst-calculator.html" class="quick-pill active">🧾 GST</a>
+        <a href="loan-calculator.html" class="quick-pill">🏡 Loan & Extra Pay</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content" id="main-content" role="main">
+
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+      <ol class="breadcrumb-list">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-separator" aria-hidden="true">/</li>
+        <li class="breadcrumb-item"><span class="breadcrumb-current">GST Calculator</span></li>
+      </ol>
+    </nav>
+
+    <!-- Title -->
+    <div class="calc-title-bar">
+      <h1 class="calc-view-title">GST Calculator</h1>
+      <p class="calc-view-subtitle">Compute Goods and Services Tax (GST) to add to or extract from invoice amounts with CGST/SGST splits.</p>
+    </div>
+
+    <!-- Calculator Layout -->
+    <div class="calc-main-layout">
+      <!-- Input Card -->
+      <div class="calc-form-card">
+        <div class="form-group">
+          <label class="form-label">Calculation Mode</label>
+          <div class="gst-mode-selector">
+            <button type="button" class="gst-mode-opt active" data-mode="exclusive" onclick="setGstMode('exclusive')">
+              Add GST (Exclusive)
+            </button>
+            <button type="button" class="gst-mode-opt" data-mode="inclusive" onclick="setGstMode('inclusive')">
+              Remove GST (Inclusive)
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label-row">
+            <label for="gst-amount" id="gst-amount-label" class="form-label">Base Amount (Excluding GST)</label>
+            <span class="form-sublabel">Invoice figure</span>
+          </div>
+          <div class="input-with-affix">
+            <span class="input-prefix currency-symbol">₹</span>
+            <input type="number" id="gst-amount" class="form-control has-prefix" value="50000" min="0" max="1000000000" step="100">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label-row">
+            <label for="gst-rate" class="form-label">GST Tax Rate (% slab)</label>
+            <span class="form-sublabel">Applicable tariff slab</span>
+          </div>
+          <div class="input-with-affix">
+            <input type="number" id="gst-rate" class="form-control has-suffix" value="18" min="0" max="100" step="0.5">
+            <span class="input-suffix">%</span>
+          </div>
+          <div class="gst-rate-chips">
+            <button type="button" class="gst-rate-chip" data-rate="5" onclick="setGstRate(5)">5%</button>
+            <button type="button" class="gst-rate-chip" data-rate="12" onclick="setGstRate(12)">12%</button>
+            <button type="button" class="gst-rate-chip active" data-rate="18" onclick="setGstRate(18)">18%</button>
+            <button type="button" class="gst-rate-chip" data-rate="28" onclick="setGstRate(28)">28%</button>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-primary" onclick="calculateGST()">Calculate</button>
+          <button type="button" class="btn-secondary" onclick="resetGST()">Reset</button>
+        </div>
+      </div>
+
+      <!-- Results Card -->
+      <div class="calc-results-card">
+        <div class="results-hero-box">
+          <div class="results-hero-label">Total Invoice Amount</div>
+          <div id="gst-total-amount" class="results-hero-value">₹ 59,000.00</div>
+        </div>
+
+        <div class="results-metrics-grid">
+          <div class="metric-item highlight-primary">
+            <span class="metric-label">Net (Pre-Tax) Amount</span>
+            <span id="gst-net-amount" class="metric-value">₹ 50,000.00</span>
+          </div>
+          <div class="metric-item highlight-warning">
+            <span class="metric-label">Total GST Tax Amount</span>
+            <span id="gst-calculated-amount" class="metric-value">₹ 9,000.00</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-label">CGST (Central Tax - 50%)</span>
+            <span id="gst-cgst-amount" class="metric-value">₹ 4,500.00</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-label">SGST (State Tax - 50%)</span>
+            <span id="gst-sgst-amount" class="metric-value">₹ 4,500.00</span>
+          </div>
+        </div>
+
+        <!-- Donut Chart -->
+        <div id="gst-donut-chart"></div>
+      </div>
+    </div>
+
+    <!-- AdSense Reserved Slot -->
+    <div class="ad-slot-placeholder" aria-label="Sponsored Space">
+      <span class="ad-badge">Sponsored Advertisement Area</span>
+      <span>Clean non-intrusive ad placement container</span>
+    </div>
+
+    <!-- Mathematical Explanation & Formula -->
+    <section class="info-section">
+      <h2 class="info-title">How the GST Formulas Work</h2>
+      <div class="info-content">
+        <p><strong>1. Adding GST (Exclusive Mode):</strong> When the base price excludes tax:</p>
+        <div class="formula-card">
+          GST Amount = (Base Price × GST Rate) / 100<br>
+          Total Price = Base Price + GST Amount
+        </div>
+
+        <p style="margin-top: 1.25rem;"><strong>2. Removing GST (Inclusive Mode):</strong> When the price already contains tax:</p>
+        <div class="formula-card">
+          Base Price = Total Price / (1 + (GST Rate / 100))<br>
+          GST Amount = Total Price - Base Price
+        </div>
+
+        <p style="margin-top: 1.25rem;"><strong>Intra-State Split:</strong> CGST = GST Amount / 2, SGST = GST Amount / 2.</p>
+      </div>
+    </section>
+
+    <!-- Practical Worked Example -->
+    <section class="info-section">
+      <h2 class="info-title">Practical Example of Adding and Removing GST</h2>
+      <div class="info-content">
+        <p><strong>Adding GST (18% Slab on ₹50,000 base):</strong></p>
+        <ul style="padding-left: 1.5rem; margin-bottom: 1rem;">
+          <li>GST Amount: (₹50,000 × 18) / 100 = <strong>₹9,000</strong></li>
+          <li>CGST (9%): <strong>₹4,500</strong> | SGST (9%): <strong>₹4,500</strong></li>
+          <li>Final billing price: ₹50,000 + ₹9,000 = <strong>₹59,000</strong></li>
+        </ul>
+
+        <p><strong>Removing GST (Extracting 18% tax from ₹59,000 gross total):</strong></p>
+        <ul style="padding-left: 1.5rem;">
+          <li>Pre-tax base: ₹59,000 / (1 + 0.18) = <strong>₹50,000</strong></li>
+          <li>Extracted GST component: ₹59,000 - ₹50,000 = <strong>₹9,000</strong></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Disclaimer Notice -->
+    <aside class="disclaimer-card" role="note">
+      <strong>Important Financial Estimation Notice</strong>
+      Tax rates and exemptions are subject to statutory amendments by national and state tax authorities. Input tax credits, cess charges, and threshold exemptions vary by industry classification and turnover. Confirm tax liabilities with a certified chartered accountant.
+    </aside>
+
+    <!-- FAQ Section -->
+    <section class="info-section">
+      <h2 class="info-title">Frequently Asked Questions (FAQ)</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question-btn" type="button" aria-expanded="false">
+            <span>What is the difference between GST Inclusive and GST Exclusive?</span>
+            <span class="faq-icon" aria-hidden="true">▼</span>
+          </button>
+          <div class="faq-answer">
+            GST Exclusive means the price displayed is before tax; GST must be added on top. GST Inclusive means the displayed price already incorporates the applicable GST tax.
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question-btn" type="button" aria-expanded="false">
+            <span>What are CGST, SGST, and IGST?</span>
+            <span class="faq-icon" aria-hidden="true">▼</span>
+          </button>
+          <div class="faq-answer">
+            For intra-state transactions (within the same state), GST is split equally into Central GST (CGST) and State GST (SGST). For inter-state transactions (between two states), Integrated GST (IGST) is charged in full.
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question-btn" type="button" aria-expanded="false">
+            <span>How is the base price determined from an inclusive price?</span>
+            <span class="faq-icon" aria-hidden="true">▼</span>
+          </button>
+          <div class="faq-answer">
+            The formula to remove GST is: Base Price = Total Price / (1 + (GST Rate / 100)). For an 18% slab, divide the gross price by 1.18.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Calculators -->
+    <section class="related-calcs-section">
+      <h2 class="related-calcs-title">Related Financial Calculators</h2>
+      <div class="related-calcs-grid">
+        <a href="emi-calculator.html" class="related-calc-card">
+          <strong>💳 EMI Calculator</strong>
+          <span>Calculate post-tax monthly vehicle and mortgage financing payments.</span>
+        </a>
+        <a href="sip-calculator.html" class="related-calc-card">
+          <strong>📈 SIP Mutual Fund Calculator</strong>
+          <span>Estimate long-term capital gains and tax-advantaged equity savings.</span>
+        </a>
+        <a href="loan-calculator.html" class="related-calc-card">
+          <strong>🏡 Loan Payoff Calculator</strong>
+          <span>Evaluate loan amortization and payoff strategies for commercial credit.</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>Finance Calculator Hub</h3>
+        <p>
+          Free, private, client-side financial estimation calculators. Calculations run in your browser with standard mathematical equations.
+        </p>
+      </div>
+      <div class="footer-column">
+        <h4>Calculators</h4>
+        <ul class="footer-links">
+          <li><a href="sip-calculator.html">SIP Calculator</a></li>
+          <li><a href="emi-calculator.html">EMI Calculator</a></li>
+          <li><a href="fd-calculator.html">Fixed Deposit Calculator</a></li>
+          <li><a href="compound-interest-calculator.html">Compound Interest</a></li>
+          <li><a href="gst-calculator.html">GST Calculator</a></li>
+          <li><a href="loan-calculator.html">Loan Payoff Calculator</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Trust & Policies</h4>
+        <ul class="footer-links">
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
+          <li><a href="disclaimer.html">Financial Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>&copy; 2026 Finance Calculator Hub. All calculations are mathematical estimates for educational use.</div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

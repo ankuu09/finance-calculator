@@ -3,29 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>Finance Calculator Hub - Fast, Free & Accurate Financial Calculators</title>
+  <title>Free Online Financial Calculators - Finance Calculator Hub</title>
   
   <!-- SEO & Social Meta Tags -->
-  <meta name="description" content="Free, fast, and 100% client-side financial calculators: SIP, Loan EMI, Fixed Deposit (FD), Compound Interest, GST, and Personal/Auto Loan with amortization schedules and visual breakdowns.">
-  <meta name="keywords" content="finance calculator, SIP calculator, EMI calculator, FD calculator, compound interest calculator, GST calculator, loan calculator, financial planning, amortization schedule">
+  <meta name="description" content="Free online financial calculators: SIP, Loan EMI, Fixed Deposit (FD), Compound Interest, GST, and Loan Payoff. 100% private, instant client-side estimates with interactive charts.">
+  <meta name="keywords" content="free online financial calculators, finance calculator, SIP calculator, EMI calculator, FD calculator, compound interest calculator, GST calculator, loan calculator, amortization schedule">
   <meta name="author" content="Finance Calculator Hub">
   <meta name="theme-color" content="#1e3a8a">
   <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://financecalculatorhub.com/">
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Finance Calculator Hub - Smart Financial Planning Tools">
-  <meta property="og:description" content="Calculate SIP returns, loan EMIs, fixed deposits, compound interest, and GST instantly with clean interactive charts. Zero tracking, 100% private.">
+  <meta property="og:title" content="Free Online Financial Calculators - Finance Calculator Hub">
+  <meta property="og:description" content="Free online financial calculators for SIP investments, loan EMIs, fixed deposits, compound growth, and GST tax. All computations run 100% client-side in your browser.">
+  <meta property="og:url" content="https://financecalculatorhub.com/">
   
   <!-- Stylesheets -->
   <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "name": "Finance Calculator Hub",
+        "url": "https://financecalculatorhub.com/",
+        "description": "Free online financial calculators for investments, loans, fixed deposits, taxes, and compound wealth planning.",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Finance Calculator Hub"
+        }
+      },
+      {
+        "@type": "WebApplication",
+        "name": "Finance Calculator Hub Suite",
+        "url": "https://financecalculatorhub.com/",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript",
+        "description": "Client-side financial calculation tools including SIP, EMI, FD, Compound Interest, GST, and Loan Payoff calculators."
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
   <!-- Site Header -->
   <header class="site-header" role="banner">
     <div class="header-container">
-      <a href="#home" class="brand" aria-label="Finance Calculator Hub Home">
+      <a href="index.html" class="brand" aria-label="Finance Calculator Hub Home">
         <span class="brand-icon" aria-hidden="true">₹%</span>
         <span>Finance Hub</span>
       </a>
@@ -48,15 +78,15 @@
         </button>
 
         <nav id="nav-links" class="nav-links" role="navigation" aria-label="Main Navigation">
-          <a href="#home" class="nav-link active">Home</a>
-          <a href="#sip" class="nav-link">SIP</a>
-          <a href="#emi" class="nav-link">EMI</a>
-          <a href="#fd" class="nav-link">FD</a>
-          <a href="#compound" class="nav-link">Compound</a>
-          <a href="#gst" class="nav-link">GST</a>
-          <a href="#loan" class="nav-link">Loan</a>
-          <a href="#about" class="nav-link">About</a>
-          <a href="#contact" class="nav-link">Contact</a>
+          <a href="index.html" class="nav-link active">Home</a>
+          <a href="sip-calculator.html" class="nav-link">SIP</a>
+          <a href="emi-calculator.html" class="nav-link">EMI</a>
+          <a href="fd-calculator.html" class="nav-link">FD</a>
+          <a href="compound-interest-calculator.html" class="nav-link">Compound</a>
+          <a href="gst-calculator.html" class="nav-link">GST</a>
+          <a href="loan-calculator.html" class="nav-link">Loan</a>
+          <a href="about.html" class="nav-link">About</a>
+          <a href="contact.html" class="nav-link">Contact</a>
         </nav>
       </div>
     </div>
@@ -64,12 +94,12 @@
     <!-- Quick Calculator Switcher Bar -->
     <div class="calc-quick-bar" aria-label="Quick Calculator Selection">
       <div class="calc-quick-container">
-        <a href="#sip" class="quick-pill">📈 SIP</a>
-        <a href="#emi" class="quick-pill">💳 EMI</a>
-        <a href="#fd" class="quick-pill">🏦 Fixed Deposit</a>
-        <a href="#compound" class="quick-pill">⚡ Compound Interest</a>
-        <a href="#gst" class="quick-pill">🧾 GST</a>
-        <a href="#loan" class="quick-pill">🏡 Loan & Extra Pay</a>
+        <a href="sip-calculator.html" class="quick-pill">📈 SIP</a>
+        <a href="emi-calculator.html" class="quick-pill">💳 EMI</a>
+        <a href="fd-calculator.html" class="quick-pill">🏦 Fixed Deposit</a>
+        <a href="compound-interest-calculator.html" class="quick-pill">⚡ Compound Interest</a>
+        <a href="gst-calculator.html" class="quick-pill">🧾 GST</a>
+        <a href="loan-calculator.html" class="quick-pill">🏡 Loan & Extra Pay</a>
       </div>
     </div>
   </header>
@@ -84,16 +114,16 @@
       
       <!-- Hero Section -->
       <div class="hero-card">
-        <div class="hero-badge">⚡ 100% Client-Side & Private</div>
-        <h1 id="home-hero-title" class="hero-title">Smart, Accurate & Instant Financial Calculators</h1>
+        <div class="hero-badge">⚡ Free Online Financial Calculators | 100% Client-Side Estimates</div>
+        <h1 id="home-hero-title" class="hero-title">Free Online Financial Calculators</h1>
         <p class="hero-subtitle">
-          Plan your investments, calculate loan EMIs, estimate compound growth, and compute tax effortlessly. All computations run directly in your browser with bank-standard formulas.
+          Plan investments, evaluate loan repayments, simulate compound growth, and calculate tax obligations with zero delay. Every calculation runs privately in your web browser using bank-standard mathematical equations. All figures are estimates for educational planning.
         </p>
         <ul class="hero-features-list">
-          <li class="hero-feature-item">✓ Zero server latency</li>
-          <li class="hero-feature-item">✓ No personal data collected</li>
-          <li class="hero-feature-item">✓ Multi-currency support</li>
-          <li class="hero-feature-item">✓ Detailed schedules & charts</li>
+          <li class="hero-feature-item">✓ 100% Client-Side Calculations</li>
+          <li class="hero-feature-item">✓ Zero Personal Data Collected</li>
+          <li class="hero-feature-item">✓ Multi-Currency (INR, USD, EUR, GBP, JPY)</li>
+          <li class="hero-feature-item">✓ Detailed Schedules & Visual Charts</li>
         </ul>
       </div>
 
@@ -1276,22 +1306,23 @@
       <div class="footer-column">
         <h4>Calculators</h4>
         <ul class="footer-links">
-          <li><a href="#sip">SIP Calculator</a></li>
-          <li><a href="#emi">EMI Calculator</a></li>
-          <li><a href="#fd">Fixed Deposit (FD)</a></li>
-          <li><a href="#compound">Compound Interest</a></li>
-          <li><a href="#gst">GST Calculator</a></li>
-          <li><a href="#loan">Loan & Payoff Calculator</a></li>
+          <li><a href="sip-calculator.html">SIP Calculator</a></li>
+          <li><a href="emi-calculator.html">EMI Calculator</a></li>
+          <li><a href="fd-calculator.html">Fixed Deposit (FD)</a></li>
+          <li><a href="compound-interest-calculator.html">Compound Interest</a></li>
+          <li><a href="gst-calculator.html">GST Calculator</a></li>
+          <li><a href="loan-calculator.html">Loan & Payoff Calculator</a></li>
         </ul>
       </div>
 
       <div class="footer-column">
-        <h4>About & Policies</h4>
+        <h4>Trust & Policies</h4>
         <ul class="footer-links">
-          <li><a href="#about">About Us</a></li>
-          <li><a href="#contact">Contact Support</a></li>
-          <li><a href="#privacy">Privacy Policy</a></li>
-          <li><a href="#terms">Terms of Service & Disclaimer</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
+          <li><a href="disclaimer.html">Financial Disclaimer</a></li>
         </ul>
       </div>
     </div>

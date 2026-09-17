@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>EMI Calculator - Equated Monthly Installment & Amortization Schedule</title>
+  
+  <meta name="description" content="Calculate your exact monthly loan EMI, total interest payable, and yearly amortization schedule for home loans, car loans, and personal loans. Fast, accurate, and 100% private.">
+  <meta name="keywords" content="EMI calculator, loan EMI calculator, home loan EMI, car loan installment, amortization schedule calculator, loan interest breakdown">
+  <meta name="author" content="Finance Calculator Hub">
+  <meta name="theme-color" content="#1e3a8a">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://financecalculatorhub.com/emi-calculator.html">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="EMI Calculator - Loan EMI & Amortization Schedule">
+  <meta property="og:description" content="Compute monthly installments, total interest costs, and view year-by-year loan amortization schedules instantly.">
+  <meta property="og:url" content="https://financecalculatorhub.com/emi-calculator.html">
+  
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "EMI Calculator",
+        "url": "https://financecalculatorhub.com/emi-calculator.html",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript",
+        "description": "Calculate monthly EMI and total interest for mortgages, personal loans, and auto financing."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://financecalculatorhub.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "EMI Calculator",
+            "item": "https://financecalculatorhub.com/emi-calculator.html"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Why is the interest portion higher during the early years of a loan?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Interest is computed on the outstanding principal balance. In the initial years, the unpaid balance is highest, meaning a larger percentage of each monthly payment covers interest."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does choosing a longer loan tenure affect total cost?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A longer tenure reduces your monthly EMI amount to fit monthly cash flow, but substantially increases total interest paid over the life of the loan."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does this calculation include processing fees or insurance?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. This tool computes standard reducing-balance interest and principal amortization. Lenders may charge additional loan processing fees, documentation charges, or mandatory insurance."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header" role="banner">
+    <div class="header-container">
+      <a href="index.html" class="brand" aria-label="Finance Calculator Hub Home">
+        <span class="brand-icon" aria-hidden="true">₹%</span>
+        <span>Finance Hub</span>
+      </a>
+
+      <div class="header-controls">
+        <div class="currency-selector-wrapper" title="Change calculation currency">
+          <label for="currency-select-emi" class="sr-only">Currency</label>
+          <select id="currency-select-emi" class="currency-select" aria-label="Select currency">
+            <option value="₹" selected>₹ INR</option>
+            <option value="$">$ USD</option>
+            <option value="€">€ EUR</option>
+            <option value="£">£ GBP</option>
+            <option value="¥">¥ JPY</option>
+          </select>
+        </div>
+
+        <button class="nav-toggle-btn" id="nav-toggle-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+          ☰
+        </button>
+
+        <nav id="nav-links" class="nav-links" role="navigation" aria-label="Main Navigation">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="sip-calculator.html" class="nav-link">SIP</a>
+          <a href="emi-calculator.html" class="nav-link active">EMI</a>
+          <a href="fd-calculator.html" class="nav-link">FD</a>
+          <a href="compound-interest-calculator.html" class="nav-link">Compound</a>
+          <a href="gst-calculator.html" class="nav-link">GST</a>
+          <a href="loan-calculator.html" class="nav-link">Loan</a>
+          <a href="about.html" class="nav-link">About</a>
+          <a href="contact.html" class="nav-link">Contact</a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Quick Switcher Bar -->
+    <div class="calc-quick-bar" aria-label="Quick Calculator Selection">
+      <div class="calc-quick-container">
+        <a href="sip-calculator.html" class="quick-pill">📈 SIP</a>
+        <a href="emi-calculator.html" class="quick-pill active">💳 EMI</a>
+        <a href="fd-calculator.html" class="quick-pill">🏦 Fixed Deposit</a>
+        <a href="compound-interest-calculator.html" class="quick-pill">⚡ Compound Interest</a>
+        <a href="gst-calculator.html" class="quick-pill">🧾 GST</a>
+        <a href="loan-calculator.html" class="quick-pill">🏡 Loan & Extra Pay</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content" id="main-content" role="main">
+
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+      <ol class="breadcrumb-list">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-separator" aria-hidden="true">/</li>
+        <li class="breadcrumb-item"><span class="breadcrumb-current">EMI Calculator</span></li>
+      </ol>
+    </nav>
+
+    <!-- Title -->
+    <div class="calc-title-bar">
+      <h1 class="calc-view-title">EMI Calculator</h1>
+      <p class="calc-view-subtitle">Calculate Equated Monthly Installments, total payable interest, and yearly amortization schedules.</p>
+    </div>
+
+    <!-- Main Layout -->
+    <div class="calc-main-layout">
+      <!-- Input Card -->
+      <div class="calc-form-card">
+        <div class="form-group">
+          <div class="form-label-row">
+            <label for="emi-principal" class="form-label">Loan Amount</label>
+            <span class="form-sublabel">Total borrowed principal</span>
+          </div>
+          <div class="input-with-affix">
+            <span class="input-prefix currency-symbol">₹</span>
+            <input type="number" id="emi-principal" class="form-control has-prefix" value="2500000" min="1000" max="100000000" step="25000">
+          </div>
+          <input type="range" id="emi-principal-range" class="range-slider" value="2500000" min="50000" max="10000000" step="25000">
+          <div class="preset-chips">
+            <button type="button" class="preset-chip" onclick="setInputValue('emi-principal', 500000); setInputValue('emi-principal-range', 500000); calculateEMI();">500K</button>
+            <button type="button" class="preset-chip" onclick="setInputValue('emi-principal', 2500000); setInputValue('emi-principal-range', 2500000); calculateEMI();">2.5M</button>
+            <button type="button" class="preset-chip" onclick="setInputValue('emi-principal', 5000000); setInputValue('emi-principal-range', 5000000); calculateEMI();">5.0M</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label-row">
+            <label for="emi-rate" class="form-label">Annual Interest Rate (% p.a.)</label>
+            <span class="form-sublabel">Annual reducing balance rate</span>
+          </div>
+          <div class="input-with-affix">
+            <input type="number" id="emi-rate" class="form-control has-suffix" value="8.5" min="0" max="40" step="0.1">
+            <span class="input-suffix">%</span>
+          </div>
+          <input type="range" id="emi-rate-range" class="range-slider" value="8.5" min="1" max="25" step="0.1">
+          <div class="preset-chips">
+            <button type="button" class="preset-chip" onclick="setInputValue('emi-rate', 8.5); setInputValue('emi-rate-range', 8.5); calculateEMI();">8.5% (Home)</button>
+            <button type="button" class="preset-chip" onclick="setInputValue('emi-rate', 9.5); setInputValue('emi-rate-range', 9.5); calculateEMI();">9.5% (Car)</button>
+            <button type="button" class="preset-chip" onclick="setInputValue('emi-rate', 13.5); setInputValue('emi-rate-range', 13.5); calculateEMI();">13.5% (Personal)</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label-row">
+            <label for="emi-tenure" class="form-label">Loan Tenure (Years)</label>
+            <span class="form-sublabel">Total repayment duration</span>
+          </div>
+          <div class="input-with-affix">
+            <input type="number" id="emi-tenure" class="form-control has-suffix" value="20" min="1" max="40" step="1">
+            <span class="input-suffix">Yr</span>
+          </div>
+          <input type="range" id="emi-tenure-range" class="range-slider" value="20" min="1" max="30" step="1">
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-primary" onclick="calculateEMI()">Calculate</button>
+          <button type="button" class="btn-secondary" onclick="resetEMI()">Reset</button>
+        </div>
+      </div>
+
+      <!-- Results Card -->
+      <div class="calc-results-card">
+        <div class="results-hero-box">
+          <div class="results-hero-label">Monthly EMI Installment</div>
+          <div id="emi-monthly-val" class="results-hero-value">₹ 21,696</div>
+        </div>
+
+        <div class="results-metrics-grid">
+          <div class="metric-item highlight-primary">
+            <span class="metric-label">Principal Borrowed</span>
+            <span id="emi-principal-val" class="metric-value">₹ 25,00,000</span>
+          </div>
+          <div class="metric-item highlight-danger">
+            <span class="metric-label">Total Interest Paid</span>
+            <span id="emi-total-interest" class="metric-value">₹ 27,06,948</span>
+          </div>
+          <div class="metric-item highlight-primary" style="grid-column: span 2;">
+            <span class="metric-label">Total Payment (Principal + Interest)</span>
+            <span id="emi-total-payment" class="metric-value">₹ 52,06,948</span>
+          </div>
+        </div>
+
+        <!-- Donut Chart -->
+        <div id="emi-donut-chart"></div>
+
+        <!-- Amortization Schedule Table -->
+        <div class="schedule-container">
+          <div class="schedule-header">
+            <span>Yearly Amortization Schedule</span>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">Principal vs Interest</span>
+          </div>
+          <div class="table-responsive">
+            <table class="schedule-table">
+              <thead>
+                <tr>
+                  <th>Year</th>
+                  <th>Principal Paid</th>
+                  <th>Interest Paid</th>
+                  <th>Ending Balance</th>
+                </tr>
+              </thead>
+              <tbody id="emi-schedule-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AdSense Reserved Slot -->
+    <div class="ad-slot-placeholder" aria-label="Sponsored Space">
+      <span class="ad-badge">Sponsored Advertisement Area</span>
+      <span>Clean non-intrusive ad placement container</span>
+    </div>
+
+    <!-- Mathematical Explanation & Formula -->
+    <section class="info-section">
+      <h2 class="info-title">How the Loan EMI Formula Works</h2>
+      <div class="info-content">
+        <p>
+          An Equated Monthly Installment (EMI) represents a fixed sum payable to the lender each month. The payment is derived using the standard reducing-balance amortization equation:
+        </p>
+        <div class="formula-card">
+          EMI = [P × r × (1 + r)<sup>n</sup>] / [(1 + r)<sup>n</sup> - 1]
+        </div>
+        <ul class="formula-legend">
+          <li><strong>P:</strong> Principal loan amount borrowed</li>
+          <li><strong>r:</strong> Monthly interest rate (Annual Interest Rate / 12 / 100)</li>
+          <li><strong>n:</strong> Total number of monthly installments (Tenure Years × 12)</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Practical Worked Example -->
+    <section class="info-section">
+      <h2 class="info-title">Practical Example of Loan EMI</h2>
+      <div class="info-content">
+        <p>
+          Assume you borrow a home loan of <strong>₹25,00,000</strong> at an annual interest rate of <strong>8.5%</strong> for a tenure of <strong>20 years</strong>:
+        </p>
+        <ul style="padding-left: 1.5rem; margin-bottom: 1rem;">
+          <li>Total repayment tenure: 20 years × 12 = <strong>240 monthly payments</strong></li>
+          <li>Monthly interest rate (r): 8.5% / 12 = <strong>0.7083% per month (0.007083)</strong></li>
+          <li>Calculated monthly EMI: <strong>₹21,696</strong></li>
+          <li>Total repayment amount over 20 years: 240 × ₹21,696 = <strong>₹52,06,948</strong></li>
+          <li>Total cumulative interest charges: ₹52,06,948 - ₹25,00,000 = <strong>₹27,06,948</strong></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Disclaimer Notice -->
+    <aside class="disclaimer-card" role="note">
+      <strong>Important Financial Estimation Notice</strong>
+      All EMI projections are mathematical estimates based on constant reducing-balance interest rates. Floating rate loans may change over the term. Processing fees, statutory stamp duty, and administrative charges are not included. Please check loan schedules with your lending institution.
+    </aside>
+
+    <!-- Visible FAQ Section -->
+    <section class="info-section">
+      <h2 class="info-title">Frequently Asked Questions (FAQ)</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question-btn" type="button" aria-expanded="false">
+            <span>Why is the interest portion higher during the early years of a loan?</span>
+            <span class="faq-icon" aria-hidden="true">▼</span>
+          </button>
+          <div class="faq-answer">
+            Interest is computed on the outstanding principal balance. In the initial years, the unpaid balance is highest, meaning a larger percentage of each monthly payment covers interest.
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question-btn" type="button" aria-expanded="false">
+            <span>How does choosing a longer loan tenure affect total cost?</span>
+            <span class="faq-icon" aria-hidden="true">▼</span>
+          </button>
+          <div class="faq-answer">
+            A longer tenure reduces your monthly EMI amount to fit monthly cash flow, but substantially increases total interest paid over the life of the loan.
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question-btn" type="button" aria-expanded="false">
+            <span>Does this calculation include processing fees or insurance?</span>
+            <span class="faq-icon" aria-hidden="true">▼</span>
+          </button>
+          <div class="faq-answer">
+            No. This tool computes standard reducing-balance interest and principal amortization. Lenders may charge additional loan processing fees, documentation charges, or mandatory insurance.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Calculators -->
+    <section class="related-calcs-section">
+      <h2 class="related-calcs-title">Related Financial Calculators</h2>
+      <div class="related-calcs-grid">
+        <a href="loan-calculator.html" class="related-calc-card">
+          <strong>🏡 Loan & Prepayment Calculator</strong>
+          <span>Evaluate how extra monthly payments can shave years off your debt.</span>
+        </a>
+        <a href="sip-calculator.html" class="related-calc-card">
+          <strong>📈 SIP Investment Calculator</strong>
+          <span>Discover whether investing extra surplus yields more than debt payoff.</span>
+        </a>
+        <a href="gst-calculator.html" class="related-calc-card">
+          <strong>🧾 GST Tax Calculator</strong>
+          <span>Calculate goods & services tax for property registration or vehicle purchases.</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>Finance Calculator Hub</h3>
+        <p>
+          Free, private, client-side financial estimation calculators. Calculations run in your browser with standard mathematical equations.
+        </p>
+      </div>
+      <div class="footer-column">
+        <h4>Calculators</h4>
+        <ul class="footer-links">
+          <li><a href="sip-calculator.html">SIP Calculator</a></li>
+          <li><a href="emi-calculator.html">EMI Calculator</a></li>
+          <li><a href="fd-calculator.html">Fixed Deposit Calculator</a></li>
+          <li><a href="compound-interest-calculator.html">Compound Interest</a></li>
+          <li><a href="gst-calculator.html">GST Calculator</a></li>
+          <li><a href="loan-calculator.html">Loan Payoff Calculator</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Trust & Policies</h4>
+        <ul class="footer-links">
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
+          <li><a href="disclaimer.html">Financial Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>&copy; 2026 Finance Calculator Hub. All calculations are mathematical estimates for educational use.</div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

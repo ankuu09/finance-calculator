@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Loan Calculator - Payoff Schedule & Extra Prepayment Savings</title>
+  
+  <meta name="description" content="Calculate standard loan payoff schedules and quantify how extra monthly prepayments reduce your total interest and shorten your debt-free timeline.">
+  <meta name="keywords" content="loan calculator, prepayment calculator, extra payment calculator, debt payoff schedule, interest saved on prepayment">
+  <meta name="author" content="Finance Calculator Hub">
+  <meta name="theme-color" content="#1e3a8a">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://financecalculatorhub.com/loan-calculator.html">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Loan Calculator - Payoff Schedule & Extra Payments">
+  <meta property="og:description" content="Determine your monthly loan obligations and see how extra payments save interest and accelerate loan freedom.">
+  <meta property="og:url" content="https://financecalculatorhub.com/loan-calculator.html">
+  
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Loan Calculator",
+        "url": "https://financecalculatorhub.com/loan-calculator.html",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript",
+        "description": "Calculate loan payoff schedules and quantify interest savings through extra principal prepayments."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://financecalculatorhub.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Loan Calculator",
+            "item": "https://financecalculatorhub.com/loan-calculator.html"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How does making an extra payment each month reduce loan tenure?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Every additional dollar or rupee paid above the required EMI is credited directly toward reducing the principal balance. With a lower principal, future monthly interest drops, creating a compounding savings cycle."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are there prepayment penalty fees for paying off loans early?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Many regulatory authorities (like RBI in India or CFPB in the USA) prohibit prepayment penalties on floating-rate home loans. However, fixed-rate loans or personal loans may carry prepayment charges. Review your loan agreement terms."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is it better to prepay my loan or invest in mutual funds?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "If your expected after-tax investment return exceeds your loan's interest rate, investing may generate higher net worth. However, loan prepayment provides a risk-free guaranteed return equal to the loan interest rate."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header" role="banner">
+    <div class="header-container">
+      <a href="index.html" class="brand" aria-label="Finance Calculator Hub Home">
+        <span class="brand-icon" aria-hidden="true">₹%</span>
+        <span>Finance Hub</span>
+      </a>
+
+      <div class="header-controls">
+        <div class="currency-selector-wrapper" title="Change calculation currency">
+          <label for="currency-select-loan" class="sr-only">Currency</label>
+          <select id="currency-select-loan" class="currency-select" aria-label="Select currency">
+            <option value="₹" selected>₹ INR</option>
+            <option value="$">$ USD</option>
+            <option value="€">€ EUR</option>
+            <option value="£">£ GBP</option>
+            <option value="¥">¥ JPY</option>
+          </select>
+        </div>
+
+        <button class="nav-toggle-btn" id="nav-toggle-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+          ☰
+        </button>
+
+        <nav id="nav-links" class="nav-links" role="navigation" aria-label="Main Navigation">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="sip-calculator.html" class="nav-link">SIP</a>
+          <a href="emi-calculator.html" class="nav-link">EMI</a>
+          <a href="fd-calculator.html" class="nav-link">FD</a>
+          <a href="compound-interest-calculator.html" class="nav-link">Compound</a>
+          <a href="gst-calculator.html" class="nav-link">GST</a>
+          <a href="loan-calculator.html" class="nav-link active">Loan</a>
+          <a href="about.html" class="nav-link">About</a>
+          <a href="contact.html" class="nav-link">Contact</a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Quick Switcher Bar -->
+    <div class="calc-quick-bar" aria-label="Quick Calculator Selection">
+      <div class="calc-quick-container">
+        <a href="sip-calculator.html" class="quick-pill">📈 SIP</a>
+        <a href="emi-calculator.html" class="quick-pill">💳 EMI</a>
+        <a href="fd-calculator.html" class="quick-pill">🏦 Fixed Deposit</a>
+        <a href="compound-interest-calculator.html" class="quick-pill">⚡ Compound Interest</a>
+        <a href="gst-calculator.html" class="quick-pill">🧾 GST</a>
+        <a href="loan-calculator.html" class="quick-pill active">🏡 Loan & Extra Pay</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content" id="main-content" role="main">
+
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+      <ol class="breadcrumb-list">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-separator" aria-hidden="true">/</li>
+        <li class="breadcrumb-item"><span class="breadcrumb-current">Loan & Extra Payment Calculator</span></li>
+      </ol>
+    </nav>
+
+    <!-- Title -->
+    <div class="calc-title-bar">
+      <h1 class="calc-view-title">Loan & Extra Payment Calculator</h1>
+      <p class="calc-view-subtitle">Simulate amortization schedules and discover how extra monthly prepayments slash your interest burden.</p>
+    </div>
+
+    <!-- Calculator Layout -->
+    <div class="calc-main-layout">
+      <!-- Input Card -->
+      <div class="calc-form-card">
+        <div class="form-group">
+          <div class="form-label-row">
+            <label for="loan-amount" class="form-label">Loan Amount</label>
+            <span class="form-sublabel">Total borrowed principal</span>
+          </div>
+          <div class="input-with-affix">
+            <span class="input-prefix currency-symbol">₹</span>
+            <input type="number" id="loan-amount" class="form-control has-prefix" value="1500000" min="10000" max="50000000" step="25000">
+          </div>
+          <input type="range" id="loan-amount-range" class="range-slider" value="1500000" min="100000" max="10000000" step="25000">
+        </div>
+
+        <div class="form-group">
+          <div class="form-label-row">
+            <label for="loan-rate" class="form-label">Interest Rate (% p.a.)</label>
+            <span class="form-sublabel">Annual interest rate</span>
+          </div>
+          <div class="input-with-affix">
+            <input type="number" id="loan-rate" class="form-control has-suffix" value="9.0" min="0" max="35" step="0.1">
+            <span class="input-suffix">%</span>
+          </div>
+          <input type="range" id="loan-rate-range" class="range-slider" value="9.0" min="1" max="25" step="0.1">
+        </div>
+
+        <div class="form-group">
+          <div class="form-label-row">
+            <label for="loan-years" class="form-label">Loan Term (Years)</label>
+            <span class="form-sublabel">Scheduled repayment duration</span>
+          </div>
+          <div class="input-with-affix">
+            <input type="number" id="loan-years" class="form-control has-suffix" value="15" min="1" max="40" step="1">
+            <span class="input-suffix">Yr</span>
+          </div>
+          <input type="range" id="loan-years-range" class="range-slider" value="15" min="1" max="30" step="1">
+        </div>
+
+        <div class="form-group">
+          <div class="form-label-row">
+            <label for="loan-extra" class="form-label">Extra Monthly Payment</label>
+            <span class="form-sublabel">Additional principal prepayment each month</span>
+          </div>
+          <div class="input-with-affix">
+            <span class="input-prefix currency-symbol">₹</span>
+            <input type="number" id="loan-extra" class="form-control has-prefix" value="0" min="0" max="500000" step="500">
+          </div>
+          <div class="preset-chips">
+            <button type="button" class="preset-chip" onclick="setInputValue('loan-extra', 1000); calculateLoan();">+ 1,000/mo</button>
+            <button type="button" class="preset-chip" onclick="setInputValue('loan-extra', 2500); calculateLoan();">+ 2,500/mo</button>
+            <button type="button" class="preset-chip" onclick="setInputValue('loan-extra', 5000); calculateLoan();">+ 5,000/mo</button>
+            <button type="button" class="preset-chip" onclick="setInputValue('loan-extra', 10000); calculateLoan();">+ 10,000/mo</button>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-primary" onclick="calculateLoan()">Calculate</button>
+          <button type="button" class="btn-secondary" onclick="resetLoan()">Reset</button>
+        </div>
+      </div>
+
+      <!-- Results Card -->
+      <div class="calc-results-card">
+        <div class="results-hero-box">
+          <div class="results-hero-label">Total Monthly Outflow (Base + Extra)</div>
+          <div id="loan-monthly-payment" class="results-hero-value">₹ 15,214</div>
+        </div>
+
+        <div class="results-metrics-grid">
+          <div class="metric-item highlight-danger">
+            <span class="metric-label">Total Interest Paid</span>
+            <span id="loan-total-interest" class="metric-value">₹ 12,38,506</span>
+          </div>
+          <div class="metric-item highlight-primary">
+            <span class="metric-label">Total Cumulative Cost</span>
+            <span id="loan-total-cost" class="metric-value">₹ 27,38,506</span>
+          </div>
+        </div>
+
+        <!-- Prepayment Impact Highlight Box -->
+        <div id="loan-savings-box" style="display: none; background: var(--success-bg); border: 1px solid var(--success); border-radius: var(--radius-sm); padding: 1rem; margin: 1rem 0; color: var(--success); font-size: 0.95rem; font-weight: 600;">
+          <span id="loan-savings-text"></span>
+        </div>
+
+        <!-- Donut Chart -->
+        <div id="loan-donut-chart"></div>
+      </div>
+    </div>
+
+    <!-- AdSense Reserved Slot -->
+    <div class="ad-slot-placeholder" aria-label="Sponsored Space">
+      <span class="ad-badge">Sponsored Advertisement Area</span>
+      <span>Clean non-intrusive ad placement container</span>
+    </div>
+
+    <!-- Mathematical Explanation & Formula -->
+    <section class="info-section">
+      <h2 class="info-title">How Loan Amortization and Prepayments Work</h2>
+      <div class="info-content">
+        <p>
+          Standard reducing-balance amortization divides every regular payment into two components:
+        </p>
+        <div class="formula-card">
+          Monthly Interest = Unpaid Principal Balance × (Annual Rate / 12 / 100)<br>
+          Principal Repayment = Total Monthly Payment - Monthly Interest
+        </div>
+        <p>
+          When you make an <strong>extra prepayment</strong>, 100% of that additional money bypasses interest and attacks the principal balance directly. Because future interest is calculated exclusively on remaining principal, every extra prepayment permanently reduces future interest charges for the remaining duration of the loan.
+        </p>
+      </div>
+    </section>
+
+    <!-- Practical Worked Example -->
+    <section class="info-section">
+      <h2 class="info-title">Practical Example of Loan Prepayment Impact</h2>
+      <div class="info-content">
+        <p>
+          Consider a loan of <strong>₹15,00,000</strong> at <strong>9% interest</strong> over a <strong>15-year tenure</strong>:
+        </p>
+        <ul style="padding-left: 1.5rem; margin-bottom: 1rem;">
+          <li>Standard base monthly EMI: <strong>₹15,214</strong></li>
+          <li>Standard total interest over 15 years: <strong>₹12,38,506</strong></li>
+          <li>Now suppose you pay an extra <strong>₹2,500/month</strong> (total ₹17,714/month):</li>
+          <li>Your loan is paid off in approximately <strong>11.5 years instead of 15 years</strong> (saving 3.5 years of debt!).</li>
+          <li>Total interest drops to approximately <strong>₹9,12,000</strong>, putting <strong>₹3,26,000+ back in your pocket</strong>.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Disclaimer Notice -->
+    <aside class="disclaimer-card" role="note">
+      <strong>Important Financial Estimation Notice</strong>
+      Actual prepayment credits depend on how your lender applies prepayments (whether immediately on the date received or on the next cycle billing date). Some institutions require written notice to allocate prepayments toward principal reduction. Contact your loan officer to confirm your bank's specific prepayment policy.
+    </aside>
+
+    <!-- FAQ Section -->
+    <section class="info-section">
+      <h2 class="info-title">Frequently Asked Questions (FAQ)</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question-btn" type="button" aria-expanded="false">
+            <span>How does making an extra payment each month reduce loan tenure?</span>
+            <span class="faq-icon" aria-hidden="true">▼</span>
+          </button>
+          <div class="faq-answer">
+            Every additional dollar or rupee paid above the required EMI is credited directly toward reducing the principal balance. With a lower principal, future monthly interest drops, creating a compounding savings cycle.
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question-btn" type="button" aria-expanded="false">
+            <span>Are there prepayment penalty fees for paying off loans early?</span>
+            <span class="faq-icon" aria-hidden="true">▼</span>
+          </button>
+          <div class="faq-answer">
+            Many regulatory authorities (like RBI in India or CFPB in the USA) prohibit prepayment penalties on floating-rate home loans. However, fixed-rate loans or personal loans may carry prepayment charges. Review your loan agreement terms.
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question-btn" type="button" aria-expanded="false">
+            <span>Is it better to prepay my loan or invest in mutual funds?</span>
+            <span class="faq-icon" aria-hidden="true">▼</span>
+          </button>
+          <div class="faq-answer">
+            If your expected after-tax investment return exceeds your loan's interest rate, investing may generate higher net worth. However, loan prepayment provides a risk-free guaranteed return equal to the loan interest rate.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Calculators -->
+    <section class="related-calcs-section">
+      <h2 class="related-calcs-title">Related Financial Calculators</h2>
+      <div class="related-calcs-grid">
+        <a href="emi-calculator.html" class="related-calc-card">
+          <strong>💳 Standard EMI Calculator</strong>
+          <span>Calculate baseline equated monthly installments without prepayments.</span>
+        </a>
+        <a href="sip-calculator.html" class="related-calc-card">
+          <strong>📈 SIP Mutual Fund Calculator</strong>
+          <span>Analyze the opportunity cost of investing extra cash in mutual funds.</span>
+        </a>
+        <a href="compound-interest-calculator.html" class="related-calc-card">
+          <strong>⚡ Compound Interest Calculator</strong>
+          <span>Compare debt payoff returns with compound investment growth.</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>Finance Calculator Hub</h3>
+        <p>
+          Free, private, client-side financial estimation calculators. Calculations run in your browser with standard mathematical equations.
+        </p>
+      </div>
+      <div class="footer-column">
+        <h4>Calculators</h4>
+        <ul class="footer-links">
+          <li><a href="sip-calculator.html">SIP Calculator</a></li>
+          <li><a href="emi-calculator.html">EMI Calculator</a></li>
+          <li><a href="fd-calculator.html">Fixed Deposit Calculator</a></li>
+          <li><a href="compound-interest-calculator.html">Compound Interest</a></li>
+          <li><a href="gst-calculator.html">GST Calculator</a></li>
+          <li><a href="loan-calculator.html">Loan Payoff Calculator</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Trust & Policies</h4>
+        <ul class="footer-links">
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
+          <li><a href="disclaimer.html">Financial Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>&copy; 2026 Finance Calculator Hub. All calculations are mathematical estimates for educational use.</div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
