@@ -1,75 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
   <url>
-    <loc>https://financecalculatorhub.com/</loc>
+    <loc>https://ankuu09.github.io/finance-calculator/</loc>
     <lastmod>2026-09-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+
   <url>
-    <loc>https://financecalculatorhub.com/sip-calculator.html</loc>
+    <loc>https://ankuu09.github.io/finance-calculator/sip-calculator.html</loc>
     <lastmod>2026-09-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
+
   <url>
-    <loc>https://financecalculatorhub.com/emi-calculator.html</loc>
+    <loc>https://ankuu09.github.io/finance-calculator/emi-calculator.html</loc>
     <lastmod>2026-09-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
+
   <url>
-    <loc>https://financecalculatorhub.com/fd-calculator.html</loc>
+    <loc>https://ankuu09.github.io/finance-calculator/fd-calculator.html</loc>
     <lastmod>2026-09-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
+
   <url>
-    <loc>https://financecalculatorhub.com/compound-interest-calculator.html</loc>
+    <loc>https://ankuu09.github.io/finance-calculator/compound-interest-calculator.html</loc>
     <lastmod>2026-09-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
+
   <url>
-    <loc>https://financecalculatorhub.com/gst-calculator.html</loc>
+    <loc>https://ankuu09.github.io/finance-calculator/gst-calculator.html</loc>
     <lastmod>2026-09-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
+
   <url>
-    <loc>https://financecalculatorhub.com/loan-calculator.html</loc>
+    <loc>https://ankuu09.github.io/finance-calculator/loan-calculator.html</loc>
     <lastmod>2026-09-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
+
   <url>
-    <loc>https://financecalculatorhub.com/about.html</loc>
+    <loc>https://ankuu09.github.io/finance-calculator/about.html</loc>
     <lastmod>2026-09-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
+
   <url>
-    <loc>https://financecalculatorhub.com/contact.html</loc>
+    <loc>https://ankuu09.github.io/finance-calculator/contact.html</loc>
     <lastmod>2026-09-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
+
   <url>
-    <loc>https://financecalculatorhub.com/privacy-policy.html</loc>
+    <loc>https://ankuu09.github.io/finance-calculator/privacy-policy.html</loc>
     <lastmod>2026-09-17</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
+
   <url>
-    <loc>https://financecalculatorhub.com/terms.html</loc>
+    <loc>https://ankuu09.github.io/finance-calculator/terms.html</loc>
     <lastmod>2026-09-17</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
+
   <url>
-    <loc>https://financecalculatorhub.com/disclaimer.html</loc>
+    <loc>https://ankuu09.github.io/finance-calculator/disclaimer.html</loc>
     <lastmod>2026-09-17</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
+
 </urlset>
